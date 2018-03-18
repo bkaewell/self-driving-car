@@ -1,4 +1,4 @@
-# **Traffic Sign Recognition** 
+# **Traffic Sign Recognition with Deep Learning** 
 
 ## Writeup
 
@@ -7,8 +7,7 @@
 **Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
-* Load the data set (see below for links to the project data set)
-* Explore, summarize and visualize the data set
+* Classify traffic signs using a simple convolutional neural network
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
@@ -19,7 +18,7 @@ The goals / steps of this project are the following:
 
 [image1]: ./output/traffic_sign_histogram.jpg "Visualization"
 [image2]: ./output/traffic_sign_examples.jpg "Traffic Signs"
-
+[image3]: ./output/traffic_sign_normalized.jpg "Traffic Sign Normalized"
 
 ---
 ### Writeup / README
@@ -41,11 +40,12 @@ signs data set:
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set.  It is a histogram showing how the data has an uneven distribution.  There are several peaks and valleys, which form majority and minority classes, respectively within the data set.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce the minority classes' signal while preventing bias in the model to the majority classes.
-
+Before I start building my deep learning network, here is an exploratory visualization of the data set that I used from the [German Traffic Sign Recognition Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).  The figure below is a histogram illustrating an uneven distribution in the data set.  There are many peaks and valleys that form majority and minority classes.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce the minority classes' signal while reducing potential bias in the model to the majority classes.  This could be an area of improvement for preprocessing the original data.
 
 ![alt text][image1]
 
+
+The data set contains over 34,000 images divided into 43 different classes ranging from speed limit signs to wild animal crossings.  Here are a few examples selected at random:
 
 ![alt text][image2]
 
@@ -54,23 +54,13 @@ Here is an exploratory visualization of the data set.  It is a histogram showing
 
 #### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-As a first step, I decided to convert the images to grayscale because ...
+After exploring a limited subset of the training data, I decided that the colors of the traffic signs would be a better learning experience for the neural network than converting it to grayscale.  As a first step, I decided to normalize the image data using the min-max scaling technique because I wanted to build a well conditioned model with zero mean and small variance to keep it very uncertain about things.  Furthermore, it makes it easier for the feed forward optimizer to proceed numerically (i.e. accelerates the convergence of the model to the solution of accurate classification).  
 
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
-
-I decided to generate additional data because ... 
-
-To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
+Here is an example of a traffic sign image before and after normalization:
 
 ![alt text][image3]
 
-The difference between the original data set and the augmented data set is the following ... 
+The difference between the original data set and the augmented data set is the dynamic range of the pixels due to normalization with min-max scaling to a pixel intensity range of (0.1, 0.9).  Notice the whites are not as white and the darks are not as dark producing a small variance pixel to pixel.
 
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
