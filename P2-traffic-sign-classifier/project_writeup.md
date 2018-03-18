@@ -70,29 +70,29 @@ My final model consisted of the following layers resembling LeNet 5:
 |Layer 							|Dimensions				|Description										| 
 |:-----------------------------:|:---------------------:|:-------------------------------------------------:| 
 |Convolution Layer 1 5x5		|Input: (32,32,3)		|32x32x3 RGB image input							| 
-|								|Output: (14,14,6)		|-  2D Convolution Layer							|
+|								|Output: (14,14,6)		| -  2D Convolution Layer							|
 |								|						|     -  1x1 stride, valid padding					|
-|								|						|-  RELU Activation									|
+|								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
-|								|						|-  2D Max Pooling (down sample)					|
+|								|						| -  2D Max Pooling (down sample)					|
 |								|						|    -  2x2 stride, 2x2 kernel size, valid padding	|
 |								|						| 													|
-|Convolution Layer 2 5x5		|Input: (14,14,6)		|-  2D Convolution Layer 							| 
+|Convolution Layer 2 5x5		|Input: (14,14,6)		| -  2D Convolution Layer 							| 
 |								|Output: (5,5,16)		|     -  1x1 stride, valid padding					|
-|								|						|-  RELU Activation									|
+|								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
-|								|						|-  2D Max Pooling (down sample)					|
+|								|						| -  2D Max Pooling (down sample)					|
 |								|						|    -  2x2 stride, 2x2 kernel size, valid padding	|
 |								|						|													|
-|Fully Connected Layer 3		|Input: 400 			|-  Linear (WX + b)									|
-|								|Output: 120			|-  RELU Activation									| 
-|								|						|-  Dropout 0.75 (keep 75% of neurons)				|
+|Fully Connected Layer 3		|Input: 400 			| -  Linear (WX + b)								|
+|								|Output: 120			| -  RELU Activation								| 
+|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
 |								|						| 													|
-|Fully Connected Layer 4		|Input: 120				|-  Linear (WX + b)									|
-|								|Output: 84				|-  RELU Activation									| 
-|								|						|-  Dropout 0.75 (keep 75% of neurons)				|
+|Fully Connected Layer 4		|Input: 120				| -  Linear (WX + b)								|
+|								|Output: 84				| -  RELU Activation								| 
+|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
 |								|						|													|
-|Output Layer 5					|Input: 84 				|-  Linear (WX + b)									|
+|Output Layer 5					|Input: 84 				| -  Linear (WX + b)								|
 |								|Output: 43 			| 													|
 |								|						| 													|
 
