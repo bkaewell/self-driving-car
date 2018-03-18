@@ -41,13 +41,13 @@ signs data set:
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set.  It is a histogram showing how the data has an uneven distribution.  There are several peaks and valleys, which form majority and minority classes, respectively within the data set.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce its signal and prevent bias in the model to the majority classes.
+Here is an exploratory visualization of the data set.  It is a histogram showing how the data has an uneven distribution.  There are several peaks and valleys, which form majority and minority classes, respectively within the data set.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce the minority classes' signal while preventing bias in the model to the majority classes.
+
 
 ![alt text][image1]
 
 
 ![alt text][image2]
-
 
 
 ### Design and Test a Model Architecture
