@@ -74,7 +74,7 @@ My final model consisted of the following layers resembling LeNet 5:
 |								|						|     -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
-|								|						| -  2D Max Pooling (down sample)					|
+|								|						| -  2D Max Pooling (down sample)                   |
 |								|						|    -  2x2 stride, 2x2 kernel size, valid padding	|
 |								|						| 													|
 |Convolution Layer 2 5x5		|Input: (14,14,6)		| -  2D Convolution Layer 							| 
