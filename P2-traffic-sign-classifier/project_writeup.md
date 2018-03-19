@@ -69,14 +69,14 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |								|Output: (14,14,6)		| -  2D Convolution Layer							|
 |								|						|    -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
-|								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
+|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
 |								|						| -  2D Max Pooling (down sample)					|
 |								|						|    -  2x2 stride, 2x2 patch size, valid padding	|
 |								|						| 													|
 |Convolution Layer 2 5x5		|Input: (14,14,6)		| -  2D Convolution Layer 							| 
 |								|Output: (5,5,16)		|     -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
-|								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
+|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
 |								|						| -  2D Max Pooling (down sample)					|
 |								|						|    -  2x2 stride, 2x2 patch size, valid padding	|
 |								|						|													|
@@ -126,12 +126,9 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           </li>
        </ul>
         <ul>
-          <li>RELU Activation
-            <ul>
-                <li>Dropout 0.75 (keep 75% of neurons)</li>
-            </ul>
-          </li>
-       </ul>          
+          <li>RELU Activation</li>
+          <li>Dropout 0.75 (keep 75% of neurons)</li>
+       </ul>        
         <ul>
           <li>2D Max Pooling (down sample)
             <ul>
@@ -158,11 +155,8 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           </li>
        </ul>
         <ul>
-          <li>RELU Activation
-            <ul>
-                <li>Dropout 0.75 (keep 75% of neurons)</li>
-            </ul>
-          </li>
+          <li>RELU Activation</li>
+          <li>Dropout 0.75 (keep 75% of neurons)</li>
        </ul>          
         <ul>
           <li>2D Max Pooling (down sample)
