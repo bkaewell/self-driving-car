@@ -68,12 +68,12 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |Convolution Layer 1 (5x5)  |Input: (32,32,3)   |32x32x3 RGB image input                                        | 
 |							|Output: (14,14,6)  |2D Convolution Layer --> 1x1 stride, valid padding             |
 |							|					|RELU Activation --> Dropout 0.75 (keep 75% of neurons)         |
-|							|					|2D Max Pooling  --> 2x2 stride, 2x2 patch size, valid padding  |
+|							|					|2D Max Pooling --> 2x2 stride, 2x2 patch size, valid padding   |
 |							|					|																|
 |							|					|																|
 |Convolution Layer 2 (5x5)  |Input: (14,14,6)   |2D Convolution Layer --> 1x1 stride, valid padding             |               
 |							|Output: (5,5,16)   |RELU Activation --> Dropout 0.75 (keep 75% of neurons)         |               
-|							|					|2D Max Pooling  --> 2x2 stride, 2x2 patch size, valid padding  |
+|							|					|2D Max Pooling --> 2x2 stride, 2x2 patch size, valid padding   |
 |							|					|																|
 |							|					|																|
 |Fully Connected Layer 3    |Input: 400         |Linear (WX + b)                                                |
@@ -98,119 +98,9 @@ Third and fourth layers are fully connected layers with a width of 120 and 84, r
 The final layer, the output, is a fully connected layer with a width of 43 (total classes).
 
 
-<table border="1">
-  <tbody border="1">
-    <tr>
-      <th align="center">Layer</th>
-      <th align="center">Dimensions</th>
-      <th align="center">Description</th>
-    </tr>
-    <tr>
-      <td valign="top">Convolution Layer 1 5x5</td>
-      <td valign="top">
-        <ul><li>Input: (32,32,3)</li>
-          <li>Output: (14,14,6)</li></ul>
-      </td>
-      <td valign="top">
-        <ul><li>2D Convolution Layer
-            <ul><li>1x1 stride, valid padding</li></ul></li></ul>
-        <ul><li>RELU Activation</li>
-          <li>Dropout 0.75 (keep 75% of neurons)</li></ul>        
-        <ul>
-          <li>2D Max Pooling (down sample)
-            <ul>
-                <li>2x2 stride, 2x2 patch size, valid padding</li>
-            </ul>
-          </li>
-       </ul>          
-      </td>
-    </tr>
-    <tr>
-      <td valign="top">Convolution Layer 2 5x5</td>
-      <td valign="top">
-        <ul>
-          <li>Input: (14,14,6)</li>
-          <li>Output: (5,5,16)</li>
-        </ul>
-      </td>
-      <td valign="top">
-        <ul>
-          <li>2D Convolution Layer
-            <ul>
-                <li>1x1 stride, valid padding</li>
-            </ul>
-          </li>
-       </ul>
-        <ul>
-          <li>RELU Activation</li>
-          <li>Dropout 0.75</li>
-       </ul>          
-        <ul>
-          <li>2D Max Pooling
-            <ul>
-                <li>2x2 stride, 2x2 patch size, valid padding</li>
-            </ul>
-          </li>
-       </ul>          
-      </td>
-    </tr>      
-    <tr>
-      <td valign="top">Fully Connected Layer 3</td>
-      <td valign="top">
-        <ul>
-          <li>Input: 400</li>
-          <li>Output: 120</li>
-        </ul>
-      </td>
-      <td valign="top">
-        <ul>
-          <li>Linear (WX + b)</li>
-          <li>RELU Activation</li>
-          <li>Dropout 0.75</li>
-       </ul>       
-      </td>
-    </tr>         
-    <tr>
-      <td valign="top">Fully Connected Layer 4</td>
-      <td valign="top">
-        <ul>
-          <li>Input: 120</li>
-          <li>Output: 84</li>
-        </ul>
-      </td>
-      <td valign="top">
-        <ul>
-          <li>Linear (WX + b)</li>
-          <li>RELU Activation</li>
-          <li>Dropout 0.75</li>
-       </ul>       
-      </td>
-    </tr>         
-    <tr>
-      <td valign="top">Output Layer 5</td>
-      <td valign="top">
-        <ul>
-          <li>Input: 84</li>
-          <li>Output: 43</li>
-        </ul>
-      </td>
-      <td valign="top">
-        <ul>
-          <li>Linear (WX + b)</li>
-       </ul>       
-      </td>
-    </tr>       
-  </tbody>
-</table>
-
-
-
 ### Model Training Parameters
 
 To train the model, I used an Adam Optimizer with the default paramter settings.  After numerous trials, I used a batch size of 100 and 100 for the number of epochs.  I used a learning rate of 0.001.
-
-
-
 
 
 
