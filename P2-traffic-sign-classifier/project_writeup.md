@@ -65,20 +65,18 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 
 |Layer						|Dimension			|Description									| 
 |:-------------------------:|:-----------------:|:---------------------------------------------:| 
-|Convolution Layer 1 (5x5)  |Input: (32,32,3)   |-32x32x3 RGB image input                       | 
-|							|Output: (14,14,6)  |-2D Convolution Layer:                         |
-|							|					|    -1x1 stride, valid padding                 |
-|							|					|-RELU Activation                               |
-|							|					|-Dropout 0.75 (keep 75% of neurons)            |
-|							|					|-2D Max Pooling (down sample)                  |
-|							|					|    -2x2 stride, 2x2 patch size, valid padding |
-|							|					| 												|
+|Convolution Layer 1 (5x5)  |Input: (32,32,3)   |32x32x3 RGB image input                                       | 
+|							|Output: (14,14,6)  |2D Convolution Layer --> 1x1 stride, valid padding            |
+|							|					|RELU Activation --> Dropout 0.75 (keep 75% of neurons)        |
+|							|					|2D Max Pooling  --> 2x2 stride, 2x2 patch size, valid padding |
+|							|					|												|
+|							|					|												|
 |Convolution Layer 2 (5x5)  |Input: (14,14,6)   |2D Convolution Layer 							| 
 |							|Output: (5,5,16)   |  1x1 stride, valid padding					|
 |							|					| RELU Activation								|
 |							|					|​ Dropout 0.75									|
 |							|					|2D Max Pooling									|
-|							|					|2x2 stride, 2x2 patch size, valid padding	|
+|							|					|2x2 stride, 2x2 patch size, valid padding		|
 |							|					|												|
 |Fully Connected Layer 3    |Input: 400         |Linear (WX + b)								|
 |							|Output: 120        |RELU Activation								| 
