@@ -66,8 +66,8 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |Layer 							|Dimensions				|Description										| 
 |:-----------------------------:|:---------------------:|:-------------------------------------------------:| 
 |Convolution Layer 1 5x5		|Input: (32,32,3)		|32x32x3 RGB image input							| 
-|								|Output: (14,14,6)		|<li>2D Convolution Layer						
-|								|						|     <ul><li>1x1 stride, valid padding</li></ul></li>
+|								|Output: (14,14,6)		| -  2D Convolution Layer							|
+|								|						|    -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
 |								|						| -  2D Max Pooling (down sample)					|
@@ -99,6 +99,40 @@ Second layer is also a CNN with a patch size of 5x5, a stride of 1, VALID paddin
 Third and fourth layers are fully connected layers with a width of 120 and 84, respectively.
 
 The final layer, the output, is a fully connected layer with a width of 43 (total classes).
+
+
+
+<table>
+  <tbody>
+    <tr>
+      <th align="center">Layer</th>
+      <th align="center">Dimensions</th>
+      <th align="center">Description</th>
+    </tr>
+    <tr>
+      <td>Convolution Layer 1 5x5</td>
+      <td>
+        <ul>
+          <li>Input: (32,32,3)</li>
+          <li>Output: (14,14,6)</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>2D Convolution Layer
+            <ul>
+                <li>1x1 stride, valid padding</li>
+            </ul>
+          </li>
+       </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
 
 
 ### Model Training Parameters
