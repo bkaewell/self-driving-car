@@ -66,7 +66,7 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |Layer 							|Dimensions				|Description										| 
 |:-----------------------------:|:---------------------:|:-------------------------------------------------:| 
 |Convolution Layer 1 5x5		|Input: (32,32,3)		|32x32x3 RGB image input							| 
-|								|Output: (14,14,6)		| <ul><li>2D Convolution Layer</li></ul>			|
+|								|Output: (14,14,6)		| <li>2D Convolution Layer</li>						|
 |								|						|     - 1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
