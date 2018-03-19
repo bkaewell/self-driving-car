@@ -109,8 +109,8 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
       <th align="center">Description</th>
     </tr>
     <tr>
-      <td>Convolution Layer 1 5x5</td>
-      <td>
+      <td valign="top">Convolution Layer 1 5x5</td>
+      <td valign="top">
         <ul>
           <li>Input: (32,32,3)</li>
           <li>Output: (14,14,6)</li>
@@ -138,8 +138,8 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
       </td>
     </tr>
     <tr>
-      <td>Convolution Layer 2 5x5</td>
-      <td>
+      <td valign="top">Convolution Layer 2 5x5</td>
+      <td valign="top">
         <ul>
           <li>Input: (14,14,6)</li>
           <li>Output: (5,5,16)</li>
@@ -167,8 +167,8 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
       </td>
     </tr>      
     <tr>
-      <td>Fully Connected Layer 3</td>
-      <td>
+      <td valign="top">Fully Connected Layer 3</td>
+      <td valign="top">
         <ul>
           <li>Input: 400</li>
           <li>Output: 120</li>
@@ -183,8 +183,8 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
       </td>
     </tr>         
     <tr>
-      <td>Fully Connected Layer 4</td>
-      <td>
+      <td valign="top">Fully Connected Layer 4</td>
+      <td valign="top">
         <ul>
           <li>Input: 120</li>
           <li>Output: 84</li>
@@ -199,8 +199,8 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
       </td>
     </tr>         
     <tr>
-      <td>Output Layer 5</td>
-      <td>
+      <td valign="top">Output Layer 5</td>
+      <td valign="top">
         <ul>
           <li>Input: 84</li>
           <li>Output: 43</li>
