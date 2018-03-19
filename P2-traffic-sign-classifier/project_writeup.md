@@ -15,8 +15,15 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./output/traffic_sign_histogram.jpg "Visualization"
-[image2]: ./output/traffic_sign_examples.jpg "Traffic Signs"
+[image2]: ./output/traffic_sign_examples.jpg "Traffic Signs Examples"
 [image3]: ./output/traffic_sign_normalized.jpg "Traffic Sign Normalized"
+
+[image4]: ./new_test_images/test1.jpg "Traffic Sign Test 1"
+[image5]: ./new_test_images/test2.jpg "Traffic Sign Test 2"
+[image6]: ./new_test_images/test3.jpg "Traffic Sign Test 3"
+[image7]: ./new_test_images/test4.jpg "Traffic Sign Test 4"
+[image8]: ./new_test_images/test5.jpg "Traffic Sign Test 5"
+
 
 ---
 ### Writeup / README
@@ -40,7 +47,7 @@ Before I start building my deep learning network, here is an exploratory visuali
 ![alt text][image1]
 
 
-The data set contains over 34,000 images divided into 43 different classes ranging from speed limit signs to wild animal crossings.  Here are a few examples selected at random:
+The data set contains over 50,000 images divided into 43 different classes ranging from speed limit signs to wild animal crossings.  Here are a few examples selected at random:
 
 
 ![alt text][image2]
@@ -108,6 +115,8 @@ To train the model, I used an Adam Optimizer with the default paramter settings.
 
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+
+### Results
 
 My final model results were:
 * training set accuracy of ?
