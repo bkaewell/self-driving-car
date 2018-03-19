@@ -36,10 +36,12 @@ signs data set:
 
 Before I start building my deep learning network, here is an exploratory visualization of the data set that I used from the [German Traffic Sign Recognition Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).  The figure below is a histogram illustrating an uneven distribution in the data set.  There are many peaks and valleys that form majority and minority classes.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce the minority classes' signal while reducing potential bias in the model to the majority classes.  This could be an area of improvement for preprocessing the original data.
 
+
 ![alt text][image1]
 
 
 The data set contains over 34,000 images divided into 43 different classes ranging from speed limit signs to wild animal crossings.  Here are a few examples selected at random:
+
 
 ![alt text][image2]
 
@@ -50,7 +52,9 @@ After exploring a limited subset of the training data, I decided that the colors
 
 Here is an example of a traffic sign image before and after normalization:
 
+
 ![alt text][image3]
+
 
 The difference between the original data set and the augmented data set is the dynamic range of the pixels due to normalization with min-max scaling to a pixel intensity range of (0.1, 0.9).  Notice the whites are not as white and the darks are not as dark producing a small variance pixel to pixel.
 
@@ -62,8 +66,8 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |Layer 							|Dimensions				|Description										| 
 |:-----------------------------:|:---------------------:|:-------------------------------------------------:| 
 |Convolution Layer 1 5x5		|Input: (32,32,3)		|32x32x3 RGB image input							| 
-|								|Output: (14,14,6)		| -  2D Convolution Layer							|
-|								|						|     -  1x1 stride, valid padding					|
+|								|Output: (14,14,6)		| * 2D Convolution Layer							|
+|								|						|     * 1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
 |								|						| -  2D Max Pooling (down sample)					|
