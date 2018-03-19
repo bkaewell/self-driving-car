@@ -125,13 +125,102 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
             </ul>
           </li>
        </ul>
+        <ul>
+          <li>RELU Activation
+            <ul>
+                <li>Dropout 0.75 (keep 75% of neurons)</li>
+            </ul>
+          </li>
+       </ul>          
+        <ul>
+          <li>2D Max Pooling (down sample)
+            <ul>
+                <li>2x2 stride, 2x2 patch size, valid padding</li>
+            </ul>
+          </li>
+       </ul>          
       </td>
     </tr>
+    <tr>
+      <td>Convolution Layer 2 5x5</td>
+      <td>
+        <ul>
+          <li>Input: (14,14,6)</li>
+          <li>Output: (5,5,16)</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>2D Convolution Layer
+            <ul>
+                <li>1x1 stride, valid padding</li>
+            </ul>
+          </li>
+       </ul>
+        <ul>
+          <li>RELU Activation
+            <ul>
+                <li>Dropout 0.75 (keep 75% of neurons)</li>
+            </ul>
+          </li>
+       </ul>          
+        <ul>
+          <li>2D Max Pooling (down sample)
+            <ul>
+                <li>2x2 stride, 2x2 patch size, valid padding</li>
+            </ul>
+          </li>
+       </ul>          
+      </td>
+    </tr>      
+    <tr>
+      <td>Fully Connected Layer 3</td>
+      <td>
+        <ul>
+          <li>Input: 400</li>
+          <li>Output: 120</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Linear (WX + b)</li>
+          <li>RELU Activation</li>
+          <li>Dropout 0.75 (keep 75% of neurons)</li>
+       </ul>       
+      </td>
+    </tr>         
+    <tr>
+      <td>Fully Connected Layer 4</td>
+      <td>
+        <ul>
+          <li>Input: 120</li>
+          <li>Output: 84</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Linear (WX + b)</li>
+          <li>RELU Activation</li>
+          <li>Dropout 0.75 (keep 75% of neurons)</li>
+       </ul>       
+      </td>
+    </tr>         
+    <tr>
+      <td>Output Layer 5</td>
+      <td>
+        <ul>
+          <li>Input: 84</li>
+          <li>Output: 43</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Linear (WX + b)</li>
+       </ul>       
+      </td>
+    </tr>       
   </tbody>
 </table>
-
-
-
 
 
 
