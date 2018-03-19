@@ -30,7 +30,7 @@ The goals / steps of this project are the following:
 
 Here is a link to my [project code](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)
 
-### Data Set Summary & Exploration
+### Data Set Summary
 
 I used the numpy, pandas, and python libraries to calculate summary statistics of the German traffic
 signs data set:
@@ -40,6 +40,8 @@ signs data set:
 * The size of test set is 12,630
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
+
+### Exploratory Visualization
 
 Before I start building my deep learning network, here is an exploratory visualization of the data set that I used from the [German Traffic Sign Recognition Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).  The figure below is a histogram illustrating an uneven distribution in the data set.  There are many peaks and valleys that form majority and minority classes.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce the minority classes' signal while reducing potential bias in the model to the majority classes.  This could be an area of improvement for preprocessing the original data.
 
@@ -66,7 +68,7 @@ Here is an example of a traffic sign image before and after normalization:
 The difference between the original data set and the augmented data set is the dynamic range of the pixels due to normalization with min-max scaling to a pixel intensity range of (0.1, 0.9).  Notice the whites are not as white and the darks are not as dark producing a small variance pixel to pixel.
 
 
-### Network Architecture
+### Model Architecture
 
 My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the LeNet-5:
 
@@ -105,7 +107,7 @@ Third and fourth layers are fully connected layers with a width of 120 and 84, r
 The final layer, the output, is a fully connected layer with a width of 43 (total classes).
 
 
-### Model Training Parameters
+### Model Training
 
 To train the model, I used an Adam Optimizer with the default paramter settings.  After numerous trials, I used a batch size of 100 and 100 for the number of epochs.  I used a learning rate of 0.001.
 
@@ -122,6 +124,8 @@ My final model results were:
 * training set accuracy of ?
 * validation set accuracy of ?
 * test set accuracy of ?
+
+### Solution Approach
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
