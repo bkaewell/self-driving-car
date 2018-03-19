@@ -76,17 +76,17 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |Convolution Layer 2 5x5		|Input: (14,14,6)		| -  2D Convolution Layer 							| 
 |								|Output: (5,5,16)		|     -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
-|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
-|								|						| -  2D Max Pooling (down sample)					|
+|								|						| -  Dropout 0.75									|
+|								|						| -  2D Max Pooling									|
 |								|						|    -  2x2 stride, 2x2 patch size, valid padding	|
 |								|						|													|
 |Fully Connected Layer 3		|Input: 400 			| -  Linear (WX + b)								|
 |								|Output: 120			| -  RELU Activation								| 
-|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
+|								|						| -  Dropout 0.75									|
 |								|						| 													|
 |Fully Connected Layer 4		|Input: 120				| -  Linear (WX + b)								|
 |								|Output: 84				| -  RELU Activation								| 
-|								|						| -  Dropout 0.75 (keep 75% of neurons)				|
+|								|						| -  Dropout 0.75									|
 |								|						|													|
 |Output Layer 5					|Input: 84 				| -  Linear (WX + b)								|
 |								|Output: 43 			| 													|
@@ -155,10 +155,10 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
        </ul>
         <ul>
           <li>RELU Activation</li>
-          <li>Dropout 0.75 (keep 75% of neurons)</li>
+          <li>Dropout 0.75</li>
        </ul>          
         <ul>
-          <li>2D Max Pooling (down sample)
+          <li>2D Max Pooling
             <ul>
                 <li>2x2 stride, 2x2 patch size, valid padding</li>
             </ul>
@@ -178,7 +178,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
         <ul>
           <li>Linear (WX + b)</li>
           <li>RELU Activation</li>
-          <li>Dropout 0.75 (keep 75% of neurons)</li>
+          <li>Dropout 0.75</li>
        </ul>       
       </td>
     </tr>         
@@ -194,7 +194,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
         <ul>
           <li>Linear (WX + b)</li>
           <li>RELU Activation</li>
-          <li>Dropout 0.75 (keep 75% of neurons)</li>
+          <li>Dropout 0.75</li>
        </ul>       
       </td>
     </tr>         
