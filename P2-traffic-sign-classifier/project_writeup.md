@@ -104,7 +104,12 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
 
 
 <table border="1">
-  <tbody border="1">
+  <tbody>
+      <style>
+        table, th, td {
+        border: 1px solid black;
+        }
+        </style>
     <tr>
       <th align="center">Layer</th>
       <th align="center">Dimensions</th>
