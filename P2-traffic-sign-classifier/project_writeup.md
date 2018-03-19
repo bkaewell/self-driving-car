@@ -1,13 +1,11 @@
 # **Traffic Sign Recognition with Deep Learning** 
 
-## Writeup
-
 ---
 
 **Build a Traffic Sign Recognition Project**
 
 The goals / steps of this project are the following:
-* Classify traffic signs using a simple convolutional neural network
+* Classify traffic signs using a simple Convolutional Neural Network (CNN)
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
 * Analyze the softmax probabilities of the new images
@@ -27,8 +25,6 @@ Here is a link to my [project code](https://github.com/bkaewell/self-driving-car
 
 ### Data Set Summary & Exploration
 
-#### 1. Provide a basic summary of the data set.
-
 I used the numpy, pandas, and python libraries to calculate summary statistics of the German traffic
 signs data set:
 
@@ -37,8 +33,6 @@ signs data set:
 * The size of test set is 12,630
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
-
-#### 2. Include an exploratory visualization of the dataset.
 
 Before I start building my deep learning network, here is an exploratory visualization of the data set that I used from the [German Traffic Sign Recognition Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset).  The figure below is a histogram illustrating an uneven distribution in the data set.  There are many peaks and valleys that form majority and minority classes.  I believe a solid starting point to balance out the training data set would be to up-sample the minority classes by randomly duplicating observations.  This would reinforce the minority classes' signal while reducing potential bias in the model to the majority classes.  This could be an area of improvement for preprocessing the original data.
 
@@ -50,9 +44,7 @@ The data set contains over 34,000 images divided into 43 different classes rangi
 ![alt text][image2]
 
 
-### Design and Test a Model Architecture
-
-#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+### Preprocessing
 
 After exploring a limited subset of the training data, I decided that the colors of the traffic signs would be a better learning experience for the neural network than converting it to grayscale.  As a first step, I decided to normalize the image data using the min-max scaling technique because I wanted to build a well conditioned model with zero mean and small variance to keep it very uncertain about things.  Furthermore, it makes it easier for the feed forward optimizer to proceed numerically (i.e. accelerates the convergence of the model to the solution of accurate classification).  
 
@@ -63,9 +55,9 @@ Here is an example of a traffic sign image before and after normalization:
 The difference between the original data set and the augmented data set is the dynamic range of the pixels due to normalization with min-max scaling to a pixel intensity range of (0.1, 0.9).  Notice the whites are not as white and the darks are not as dark producing a small variance pixel to pixel.
 
 
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+### Network Architecture
 
-My final model consisted of the following layers resembling LeNet 5:
+My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the LeNet-5:
 
 |Layer 							|Dimensions				|Description										| 
 |:-----------------------------:|:---------------------:|:-------------------------------------------------:| 
@@ -74,15 +66,15 @@ My final model consisted of the following layers resembling LeNet 5:
 |								|						|     -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
-|								|						| -  2D Max Pooling (down sample)                   |
-|								|						|    -  2x2 stride, 2x2 kernel size, valid padding	|
+|								|						| -  2D Max Pooling (down sample)					|
+|								|						|    -  2x2 stride, 2x2 patch size, valid padding	|
 |								|						| 													|
 |Convolution Layer 2 5x5		|Input: (14,14,6)		| -  2D Convolution Layer 							| 
 |								|Output: (5,5,16)		|     -  1x1 stride, valid padding					|
 |								|						| -  RELU Activation								|
 |								|						|    -  Dropout 0.75 (keep 75% of neurons)			|
 |								|						| -  2D Max Pooling (down sample)					|
-|								|						|    -  2x2 stride, 2x2 kernel size, valid padding	|
+|								|						|    -  2x2 stride, 2x2 patch size, valid padding	|
 |								|						|													|
 |Fully Connected Layer 3		|Input: 400 			| -  Linear (WX + b)								|
 |								|Output: 120			| -  RELU Activation								| 
@@ -96,16 +88,32 @@ My final model consisted of the following layers resembling LeNet 5:
 |								|Output: 43 			| 													|
 |								|						| 													|
 
+First layer is a CNN with a patch size of 5x5, a stride of 1, VALID padding and a depth of 6.
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+Second layer is also a CNN with a patch size of 5x5, a stride of 1, VALID padding and a depth of 16.
 
-To train the model, I used an ....
+Third and fourth layers are fully connected layers with a width of 120 and 84, respectively.
+
+The final layer, the output, is a fully connected layer with a width of 43 (total classes).
+
+
+### Model Training Parameters
+
+To train the model, I used an Adam Optimizer with the default paramter settings.  After numerous trials, I used a batch size of 100 and 100 for the number of epochs.  I used a learning rate of 0.001.
+
+
+
+
+
+
+
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
 * training set accuracy of ?
-* validation set accuracy of ? 
+* validation set accuracy of ?
 * test set accuracy of ?
 
 If an iterative approach was chosen:
