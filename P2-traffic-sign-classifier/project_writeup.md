@@ -1,4 +1,4 @@
-# **Traffic Sign Recognition with Deep Learning** 
+# **Traffic Sign Classification with Deep Learning**
 
 ---
 
