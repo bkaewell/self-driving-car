@@ -101,16 +101,15 @@ Third and fourth layers are fully connected layers with a width of 120 and 84, r
 The final layer, the output, is a fully connected layer with a width of 43 (total classes).
 
 
-
+<style>
+    table, th, td {
+     border: 1px solid black;
+     }
+</style>
 
 <table border="1">
   <tbody>
-      <style>
-        table, th, td {
-        border: 1px solid black;
-        }
-        </style>
-    <tr>
+    <tr border="1">
       <th align="center">Layer</th>
       <th align="center">Dimensions</th>
       <th align="center">Description</th>
