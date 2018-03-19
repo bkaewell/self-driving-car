@@ -104,7 +104,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
 
 
 <table border="1">
-  <tbody>
+  <tbody border="1">
     <tr>
       <th align="center">Layer</th>
       <th align="center">Dimensions</th>
