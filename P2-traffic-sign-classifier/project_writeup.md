@@ -116,7 +116,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           <li>Output: (14,14,6)</li>
         </ul>
       </td>
-      <td>
+      <td valign="top">
         <ul>
           <li>2D Convolution Layer
             <ul>
@@ -145,7 +145,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           <li>Output: (5,5,16)</li>
         </ul>
       </td>
-      <td>
+      <td valign="top">
         <ul>
           <li>2D Convolution Layer
             <ul>
@@ -174,7 +174,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           <li>Output: 120</li>
         </ul>
       </td>
-      <td>
+      <td valign="top">
         <ul>
           <li>Linear (WX + b)</li>
           <li>RELU Activation</li>
@@ -190,7 +190,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           <li>Output: 84</li>
         </ul>
       </td>
-      <td>
+      <td valign="top">
         <ul>
           <li>Linear (WX + b)</li>
           <li>RELU Activation</li>
@@ -206,7 +206,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
           <li>Output: 43</li>
         </ul>
       </td>
-      <td>
+      <td valign="top">
         <ul>
           <li>Linear (WX + b)</li>
        </ul>       
@@ -214,23 +214,6 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
     </tr>       
   </tbody>
 </table>
-
-
-<table border="1">
-  <tr>
-    <th>Month</th>
-    <th>Savings</th>
-  </tr>
-  <tr>
-    <td>January</td>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <td>February</td>
-    <td>$80</td>
-  </tr>
-</table>
-
 
 
 
