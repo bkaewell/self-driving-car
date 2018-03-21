@@ -106,36 +106,35 @@ Third and fourth layers are fully connected layers with a width of 120 and 84, r
 The final layer, the output, is a fully connected layer with a width of 43 (total classes).
 
 
-
-
 ### Model Training
 
 To train the model, I used an Adam Optimizer with the default parameter settings.  After numerous trials, I used a batch size of 100 and 100 for the number of training epochs.  I used a learning rate of 0.001.  The dropout rate for all layers (convolutional and fully connected) had a keep probability of 0.75 meaning 75% of the neurons were retained.
 
 
-
-
-
-
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
-
 ### Results
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ?
-* test set accuracy of ?
+* training set accuracy of ???
+* validation set accuracy of ???
+* test set accuracy of ???
+
+To achieve my goal of 95% validation accuracy, I focused on parameter tuning and created a rough table of key parameters to test.  For example, Normalize vs Min-Max Scaling, no Dropout vs Dropout (with different keep probabilities), batch size, training epochs, and learning rate.  This plan tests a little bit of everything including preprocessing, regularization, and model training.
+
 
 ### Solution Approach
 
-I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow. I decided this was the best approach because the CNN learns to recognize basic lines and curves, then shapes and blobs of color, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are:
+I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow. I decided this was suitable for the current problem because the CNN learns to recognize basic lines and curves, then shapes and color blobs, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are (from bottom to top):
 
-<ul>
-<li>Lines and curves</li>    
-<li>Blobs of color, simple shapes, like circles and triangles</li>
-<li>Complex objects (combinations of simple shapes), like pedestrians, animals, and  cars</li>
-<li>The traffic sign as a whole (a combination of complex objects)</li>
-</ul>
+* Lines and curves 
+* Blobs of color, simple shapes, like circles and triangles
+* Complex objects (combinations of simple shapes), like pedestrians, animals, and  cars
+* The traffic sign as a whole (a combination of complex objects)
+
+
+
+
+
+
 
 
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
