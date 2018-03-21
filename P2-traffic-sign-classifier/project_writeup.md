@@ -70,41 +70,42 @@ The difference between the original data set and the augmented data set is the d
 
 ### Model Architecture
 
-My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the LeNet-5:
+My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the "LeNet-5":
 
-|Layer						|Dimension			|Description													| 
-|:-------------------------:|:-----------------:|:-------------------------------------------------------------:| 
-|Convolution Layer 1 (5x5)  |Input: (32,32,3)   |32x32x3 RGB image input                                        | 
-|							|Output: (14,14,6)  |2D Convolution Layer --> 1x1 stride, valid padding             |
-|							|					|RELU Activation --> Dropout 0.75 (keep 75% of neurons)         |
-|							|					|2D Max Pooling --> 2x2 stride, 2x2 patch size, valid padding   |
-|							|					|																|
-|							|					|																|
-|Convolution Layer 2 (5x5)  |Input: (14,14,6)   |2D Convolution Layer --> 1x1 stride, valid padding             |               
-|							|Output: (5,5,16)   |RELU Activation --> Dropout 0.75 (keep 75% of neurons)         |               
-|							|					|2D Max Pooling --> 2x2 stride, 2x2 patch size, valid padding   |
-|							|					|																|
-|							|					|																|
-|Fully Connected Layer 3    |Input: 400         |Linear (WX + b)                                                |
-|							|Output: 120        |RELU Activation --> Dropout 0.75 (keep 75% of neurons)         |
-|							|					|																|
-|							|					|																|
-|Fully Connected Layer 4    |Input: 120         |Linear (WX + b)                                                |
-|							|Output: 84         |RELU Activation --> Dropout 0.75 (keep 75% of neurons)         |
-|							|					|																|
-|							|					|																|
-|Output Layer 5             |Input: 84          |Linear (WX + b)												|
-|							|Output: 43         |																|
-|							|					|																|
-|							|					|																|
+|Layer						|Dimension			|Description															| 
+|:-------------------------:|:-----------------:|:---------------------------------------------------------------------:| 
+|Convolution Layer 1 (5x5)  |Input: (32,32,3)   |32x32x3 RGB image input -> ...                                         | 
+|							|Output: (14,14,6)  |2D Convolution Layer -> RELU Activation -> Dropout -> 2D Max Pooling   |
+|							|					|																		|
+|							|					|																		| 
+|Convolution Layer 2 (5x5)  |Input: (14,14,6)   |2D Convolution Layer -> RELU Activation -> Dropout -> 2D Max Pooling   |
+|							|Output: (5,5,16)   |																		|
+|							|					|																		|
+|							|					|																		|
+|Fully Connected Layer 3    |Input: 400         |Linear (WX + b) -> RELU Activation -> Dropout                          |       
+|							|Output: 120        |																		| 
+|							|					|																		|
+|							|					|																		|
+|Fully Connected Layer 4    |Input: 120         |Linear (WX + b) -> RELU Activation -> Dropout                          |
+|							|Output: 84         |																		| 
+|							|					|																		| 
+|							|					|																		| 
+|Output Layer 5             |Input: 84          |Linear (WX + b)														|
+|							|Output: 43         |																		| 
+|							|					|																		| 
+|							|					|																		|
 
-First layer is a CNN with a patch size of 5x5, a stride of 1, VALID padding and a depth of 6.
+Weights for the above CNN are randomized from a normal distribution with zero mean and equal variance.  This prevents the model from getting stuck every time I train it.  Bias vector is set to zero.  These parameters are shared across the CNN.  
 
-Second layer is also a CNN with a patch size of 5x5, a stride of 1, VALID padding and a depth of 16.
+First layer is a CNN with a patch/filter size of 5x5, a stride of 1x1, VALID padding and a depth of 6.  It uses a standard RELU activation function and dropout. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch/filter size and VALID padding.  The effect of down sampling is evident when comparing the input and output size in the dimension column in the table above.
 
-Third and fourth layers are fully connected layers with a width of 120 and 84, respectively.
+Second layer is also a CNN with a patch/filter size of 5x5, a stride of 1x1, VALID padding and a depth of 16.  It uses a standard RELU activation function and dropout. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch/filter size and VALID padding.
+
+Third and fourth layers are fully connected layers with a width of 120 and 84, respectively.  Both use a standard RELU activation function and dropout.
 
 The final layer, the output, is a fully connected layer with a width of 43 (total classes).
+
+
 
 
 ### Model Training
@@ -116,7 +117,7 @@ To train the model, I used an Adam Optimizer with the default paramter settings.
 
 
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 ### Results
 
@@ -127,10 +128,16 @@ My final model results were:
 
 ### Solution Approach
 
+I used a "LeNet-5" architecture implemented in TensorFlow.      
+
+
+
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
 * What were some problems with the initial architecture?
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
+
 * Which parameters were tuned? How were they adjusted and why?
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
