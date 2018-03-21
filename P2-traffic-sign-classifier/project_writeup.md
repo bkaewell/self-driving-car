@@ -70,7 +70,7 @@ The difference between the original data set and the augmented data set is the d
 
 ### Model Architecture
 
-My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the "LeNet-5":
+My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the "LeNet-5" function:
 
 |Layer						|Dimension			|Description															| 
 |:-------------------------:|:-----------------:|:---------------------------------------------------------------------:| 
@@ -82,8 +82,8 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |							|Output: (5,5,16)   |																		|
 |							|					|																		|
 |							|					|																		|
-|Fully Connected Layer 3    |Input: 400         |Linear (WX + b) -> RELU Activation -> Dropout                          |       
-|							|Output: 120        |																		| 
+|Fully Connected Layer 3    |Input: 400         |Flatten input -> ...                                                   |       
+|							|Output: 120        |Linear (WX + b) -> RELU Activation -> Dropout                          | 
 |							|					|																		|
 |							|					|																		|
 |Fully Connected Layer 4    |Input: 120         |Linear (WX + b) -> RELU Activation -> Dropout                          |
@@ -95,11 +95,11 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |							|					|																		| 
 |							|					|																		|
 
-Weights for the above CNN are randomized from a normal distribution with zero mean and equal variance.  This prevents the model from getting stuck every time I train it.  Bias vector is set to zero.  These parameters are shared across the CNN.  
+Weights for the above CNN are randomized from a normal distribution with zero mean and equal variance.  This prevents the model from getting stuck every time I train it.  Bias vector is set to zero.  These parameters are shared across all layers of the CNN.  
 
-First layer is a CNN with a patch/filter size of 5x5, a stride of 1x1, VALID padding and a depth of 6.  It uses a standard RELU activation function and dropout. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch/filter size and VALID padding.  The effect of down sampling is evident when comparing the input and output size in the dimension column in the table above.
+First layer is a CNN with a patch size of 5x5, a stride of 1x1, VALID padding and a depth of 6.  It uses a standard RELU activation function and dropout. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch/filter size and VALID padding.  The effect of down sampling is evident when comparing the input and output size in the dimension column in the table above.
 
-Second layer is also a CNN with a patch/filter size of 5x5, a stride of 1x1, VALID padding and a depth of 16.  It uses a standard RELU activation function and dropout. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch/filter size and VALID padding.
+Second layer is also a CNN with a patch size of 5x5, a stride of 1x1, VALID padding and a depth of 16.  It uses a standard RELU activation function and dropout. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch/filter size and VALID padding.
 
 Third and fourth layers are fully connected layers with a width of 120 and 84, respectively.  Both use a standard RELU activation function and dropout.
 
@@ -110,7 +110,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
 
 ### Model Training
 
-To train the model, I used an Adam Optimizer with the default paramter settings.  After numerous trials, I used a batch size of 100 and 100 for the number of epochs.  I used a learning rate of 0.001.
+To train the model, I used an Adam Optimizer with the default parameter settings.  After numerous trials, I used a batch size of 100 and 100 for the number of training epochs.  I used a learning rate of 0.001.  The dropout rate for all layers (convolutional and fully connected) had a keep probability of 0.75 meaning 75% of the neurons were retained.
 
 
 
@@ -128,7 +128,19 @@ My final model results were:
 
 ### Solution Approach
 
-I used a "LeNet-5" architecture implemented in TensorFlow.      
+I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow. I decided this was the best approach because the CNN learns to recognize basic lines and curves, then shapes and blobs of color, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are:
+
+<ul>
+<li>Lines and curves</li>    
+<li>Blobs of color, simple shapes, like circles and triangles</li>
+<li>Complex objects (combinations of simple shapes), like pedestrians, animals, and  cars</li>
+<li>The traffic sign as a whole (a combination of complex objects)</li>
+</ul>
+
+
+* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+
+
 
 
 
@@ -142,10 +154,8 @@ If an iterative approach was chosen:
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
 If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+
+
 
 ### Test a Model on New Images
 
