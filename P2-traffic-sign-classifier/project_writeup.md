@@ -118,29 +118,26 @@ My final model results were:
 * validation set accuracy of ???
 * test set accuracy of ???
 
-To achieve my goal of 95% validation accuracy, I focused on parameter tuning and created a rough table of key parameters to test.  For example, Normalize vs Min-Max Scaling, no Dropout vs Dropout (with different keep probabilities), batch size, training epochs, and learning rate.  This plan tests a little bit of everything including preprocessing, regularization, and model training.
+To achieve my goal of 95% validation accuracy, I focused on parameter tuning and created a rough table of key parameters to test.  For example, Normalize vs Min-Max Scaling, no Dropout vs Dropout (with different keep probabilities), batch size, training epochs, and learning rate.  This plan adjusts and tests a little bit of everything including preprocessing, regularization, and model training to build a successful and accurate model.  
 
 
 ### Solution Approach
 
-I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow. I decided this was suitable for the current problem because the CNN learns to recognize basic lines and curves, then shapes and color blobs, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are (from bottom to top):
+I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow. I decided this was suitable for the current problem because the CNN learns to recognize basic lines and curves, then shapes and color blobs, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are:
 
-* Lines and curves 
+* Lines and curves
 * Blobs of color, simple shapes, like circles and triangles
 * Complex objects (combinations of simple shapes), like pedestrians, animals, and  cars
 * The traffic sign as a whole (a combination of complex objects)
 
 
+???
+How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+???
 
-
-
-
-
-
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
-
-
-
+-Model evaluation:
+-Evaluate how well the loss and accuracy of the model for a given data set
+-loss/cost?
 
 
 If an iterative approach was chosen:
