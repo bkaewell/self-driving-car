@@ -76,24 +76,19 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |:-------------------------:|:-----------------:|:---------------------------------------------------------:| 
 |Convolution Layer 1 (5x5)  |Input: (32,32,3)   |32x32x3 RGB image input -> ...                             | 
 |							|Output: (14,14,6)  |2D Convolution Layer -> RELU Activation -> 2D Max Pooling  |
-|							|					|															|
 |							|					|															| 
 |Convolution Layer 2 (5x5)  |Input: (14,14,6)   |2D Convolution Layer -> RELU Activation -> 2D Max Pooling  |
 |							|Output: (5,5,16)   |															|
 |							|					|															|
-|							|					|															|
 |Fully Connected Layer 3    |Input: 400         |Flatten input -> ...                                       |       
 |							|Output: 120        |Linear (WX + b) -> RELU Activation -> Dropout              | 
-|							|					|															|
 |							|					|															|
 |Fully Connected Layer 4    |Input: 120         |Linear (WX + b) -> RELU Activation -> Dropout              |
 |							|Output: 84         |															| 
 |							|					|															| 
-|							|					|															| 
 |Output Layer 5             |Input: 84          |Linear (WX + b)											|
 |							|Output: 43         |															| 
 |							|					|															| 
-|							|					|															|
 
 Weights for the above CNN are randomized from a normal distribution with zero mean and equal variance.  This prevents the model from getting stuck every time I train it.  Bias vector is set to zero.  These parameters are shared across all layers of the CNN.  
 
@@ -156,6 +151,11 @@ If a well known architecture was chosen:
 ### Test a Model on New Images
 
 #### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+
+i found that conducting my search in german produced much better results than in english..
+
+in order to find more interesting images on the web, i ran a google image search in german instead of english.  this provided me much more resources to test my model.
+
 
 Here are five German traffic signs that I found on the web:
 
