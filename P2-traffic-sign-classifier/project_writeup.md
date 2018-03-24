@@ -151,7 +151,9 @@ One common justification for adjusting an architecture would be due to overfitti
 ### Acquiring New Images
 
 When I first conducted a Google search for German traffic signs, it was difficult to find a decent variety of interesting traffic signs on the web.  So, I decided to use Google translate to search for the traffic signs in German instead of English.  As a result, the new search results were significantly better in quality and quantity.  In addition, the images are unique, interesting, and challenging.  Finding good data is always half the battle!  Here are six German traffic signs that I found on the web with my expanded German vocabulary:
+
 ![alt text][image6]
+
 The first image might be difficult to classify because the snowflake is blurry.  Plus, there is snow sticking to the top of the sign.
 
 The second image might be difficult to classify because the first digit (8) is confused with other similar digits with curves (2,3,5,6,9).
