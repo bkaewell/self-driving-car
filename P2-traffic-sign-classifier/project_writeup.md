@@ -4,7 +4,9 @@
 
 **Build a Traffic Sign Recognition Project**
 
-The goals / steps of this project are the following:
+You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)
+
+### Goals
 * Classify traffic signs using a simple Convolutional Neural Network (CNN)
 * Design, train and test a model architecture
 * Use the model to make predictions on new images
@@ -13,14 +15,11 @@ The goals / steps of this project are the following:
 
 
 [//]: # (Image References)
-
 [image1]: ./output/traffic_sign_histogram.jpg "Visualization"
 [image2]: ./output/traffic_sign_examples.jpg "Traffic Signs Examples"
 [image3]: ./output/traffic_sign_normalized.jpg "Traffic Sign Normalized"
-
 [image4]: ./output/traffic_sign_model_accuracy.jpg "Model Accuracy"
 [image5]: ./output/traffic_sign_loss_accuracy.jpg "Cross Entropy"
-
 [image6]: ./traffic_sign_web_data/glatteis_gefahr_cropped_resized.jpg "Traffic Sign Test 1"
 [image7]: ./traffic_sign_web_data/speed_limit_80_cropped_resized.jpg "Traffic Sign Test 2"
 [image8]: ./traffic_sign_web_data/stoppschild_cropped_resized.jpg "Traffic Sign Test 3"
@@ -32,7 +31,7 @@ The goals / steps of this project are the following:
 ---
 ### Writeup / README
 
-Here is a link to my [project code](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)
+
 
 ## Data Set Exploration
 
@@ -141,7 +140,7 @@ How does the final model's accuracy on the training, validation and test set pro
 ???
 
 
-![alt text][image4]![alt text][image5]
+![alt text][image4] ![alt text][image5]
 
 
 -Model evaluation:
