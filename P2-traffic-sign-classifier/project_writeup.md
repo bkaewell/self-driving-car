@@ -56,7 +56,7 @@ The data set contains over 50,000 images divided into 43 different classes rangi
 
 ### Preprocessing
 
-After exploring a limited subset of the training data, I decided that the traffic sign colors would be relevant so I did not convert to grayscale.  It just seems like blobs of color especially for a red stop sign could probably aid the learning experience of a neural network.  As a first step, I decided to normalize the image data using the min-max scaling technique because I wanted to build a well-conditioned model with zero mean and small variance for the RGB pixels to keep the model very uncertain about things.  Furthermore, it makes it easier for the optimizer to proceed numerically (faster searches to reach a solution).  
+After exploring a limited subset of the training data, I decided that the traffic sign colors would be relevant so I did not convert to grayscale.  It just seems like blobs of color especially for a red stop sign could probably aid the learning experience of a neural network.  As a first step, I shuffled the data to reduce the variance in the originally sorted training set and prevent overfitting.  Then I decided to normalize the image data using the min-max scaling technique because I wanted to build a well-conditioned model with zero mean and small variance for the RGB pixels to keep the model very uncertain about things.  Furthermore, it makes it easier for the optimizer to proceed numerically (faster searches to reach a solution).  
 
 Here is an example of a traffic sign image before and after min-max scaling normalization:
 
@@ -152,7 +152,9 @@ One common justification for adjusting an architecture would be due to overfitti
 
 When I first conducted a Google search for German traffic signs, it was difficult to find a decent variety of interesting traffic signs on the web.  So, I decided to use Google translate to search for the traffic signs in German instead of English.  As a result, the new search results were significantly better in quality and quantity.  In addition, the images are unique, interesting, and challenging.  Finding good data is always half the battle!  Here are six German traffic signs that I found on the web with my expanded German vocabulary:
 
+
 ![alt text][image6]
+
 
 The first image might be difficult to classify because the snowflake is blurry.  Plus, there is snow sticking to the top of the sign.
 
@@ -172,7 +174,7 @@ The last image might be difficult to classify because there is a slight offset a
 
 ### Performance on New Images
 
-#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set
 
 Here are the results of the prediction:
 
@@ -189,7 +191,7 @@ The model was able to correctly guess 4 of the 5 traffic signs, which gives an a
 
 ### Model Certainty - Softmax Probabilities
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability.
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
@@ -208,5 +210,48 @@ For the second image ...
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+
+lenet100_num1
+
+Image 0 probabilities: [14.2163315 12.373173  11.737309  -5.0304174 -7.207167 ] 
+ and predicted classes: [28 30 11 29 40]
+Image 1 probabilities: [9.955855  8.335022  4.25188   2.7663891 0.6406882] 
+ and predicted classes: [ 1 14  5  3  6]
+Image 2 probabilities: [23.919165  13.702933   4.462939  -2.597794  -3.0730433] 
+ and predicted classes: [14  1  0 29  3]
+Image 3 probabilities: [ 76.96621    -2.6604872 -12.943187  -15.546493  -18.446085 ] 
+ and predicted classes: [25 38  5 20 13]
+Image 4 probabilities: [ 55.71036     6.6285067  -9.04037   -27.457634  -28.40523  ] 
+ and predicted classes: [10  9 13  5  7]
+Image 5 probabilities: [15.785304    6.8274164   4.1356535   3.4737847  -0.88545775] 
+ and predicted classes: [25  1 22 29 13]
+ 
+ 
+ lenet100
+ 
+ 
+ 
+ 
+ lenet50
+ Image 1 probabilities: [11.83433   9.981388  5.492402 -0.833104 -4.707231] 
+ and predicted classes: [30 11 28 20 23]
+Image 2 probabilities: [20.275467   7.401706  -1.6445613 -7.184526  -9.438777 ] 
+ and predicted classes: [ 2  1  3 40  5]
+Image 3 probabilities: [12.290498   6.4827046 -0.8051739 -3.8556192 -7.2110686] 
+ and predicted classes: [ 1  2 14  3 31]
+Image 4 probabilities: [ 39.309494   9.660156  -5.094933  -7.129432 -16.280956] 
+ and predicted classes: [25 20 10 23 31]
+Image 5 probabilities: [49.721176 21.455343 17.752237  9.275858  8.991185] 
+ and predicted classes: [10 42  9 12  5]
+Image 6 probabilities: [31.110191 21.0692   21.018528 14.778805  6.462542] 
+ and predicted classes: [31 21 23 29 19]
+ 
+ 
+ 
+
+
+
+
 
 
