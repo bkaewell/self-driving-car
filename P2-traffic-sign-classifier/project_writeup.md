@@ -2,9 +2,7 @@
 
 ---
 
-<i>
-You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)
-</i>
+<i>You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)</i>
 
 
 ### Goals
