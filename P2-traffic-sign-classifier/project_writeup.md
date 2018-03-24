@@ -2,7 +2,9 @@
 
 ---
 
-<i>You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)</i>
+<i>
+You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)
+</i>
 
 
 ### Goals
@@ -28,8 +30,6 @@
 
 
 ---
-### Writeup / README
-
 
 
 ## Data Set Exploration
@@ -139,7 +139,9 @@ How does the final model's accuracy on the training, validation and test set pro
 ???
 
 
-![alt text][image4] ![alt text][image5]
+![alt text][image4] 
+
+![alt text][image5]
 
 
 -Model evaluation:
