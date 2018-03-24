@@ -20,11 +20,11 @@
 [image4]: ./output/traffic_sign_model_accuracy.jpg "Model Accuracy"
 [image5]: ./output/traffic_sign_loss_accuracy.jpg "Cross Entropy"
 [image6]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 1"
-[image7]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 2"
-[image8]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 3"
-[image9]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 4"
-[image10]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 5"
-[image11]:  ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 6"
+[image7]: ./output/speed_limit_80_resized.jpg "Traffic Sign Test 2"
+[image8]: ./output/stoppschild_resized.jpg "Traffic Sign Test 3"
+[image9]: ./output/strassenbauarbeiten_resized.jpg "Traffic Sign Test 4"
+[image10]: ./output/uberholverbot_resized.jpg "Traffic Sign Test 5"
+[image11]:  ./output/wild_wechsel_resized.jpg "Traffic Sign Test 6"
 
 
 ---
