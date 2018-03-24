@@ -17,8 +17,8 @@
 [image1]: ./output/traffic_sign_histogram.jpg "Visualization"
 [image2]: ./output/traffic_sign_examples.jpg "Traffic Signs Examples"
 [image3]: ./output/traffic_sign_normalized.jpg "Traffic Sign Normalized"
-[image4]: ./output/traffic_sign_model_accuracy.jpg "Model Accuracy"
-[image5]: ./output/traffic_sign_cross_entropy.jpg "Cross Entropy"
+[image4]: ./output/traffic_sign_model_accuracy2.png "Model Accuracy"
+[image5]: ./output/traffic_sign_cross_entropy2.png "Cross Entropy"
 [image6]: ./output/traffic_signs_resized_web.jpg "Traffic Sign Test 1-6"
 
 
@@ -132,7 +132,7 @@ How does the final model's accuracy on the training, validation and test set pro
 ???
 
 
-![alt text][image4] 
+![alt text][image4]
 
 ![alt text][image5]
 
