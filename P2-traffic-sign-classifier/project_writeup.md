@@ -19,12 +19,12 @@
 [image3]: ./output/traffic_sign_normalized.jpg "Traffic Sign Normalized"
 [image4]: ./output/traffic_sign_model_accuracy.jpg "Model Accuracy"
 [image5]: ./output/traffic_sign_loss_accuracy.jpg "Cross Entropy"
-[image6]: ./traffic_sign_web_data/glatteis_gefahr_cropped_resized.jpg "Traffic Sign Test 1"
-[image7]: ./traffic_sign_web_data/speed_limit_80_cropped_resized.jpg "Traffic Sign Test 2"
-[image8]: ./traffic_sign_web_data/stoppschild_cropped_resized.jpg "Traffic Sign Test 3"
-[image9]: ./traffic_sign_web_data/strassenbauarbeiten_cropped_resized.jpg "Traffic Sign Test 4"
-[image10]: ./traffic_sign_web_data/uberholverbot_cropped_resized.jpg "Traffic Sign Test 5"
-[image11]:  ./traffic_sign_web_data/wild_wechsel_cropped_resized.jpg "Traffic Sign Test 6"
+[image6]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 1"
+[image7]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 2"
+[image8]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 3"
+[image9]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 4"
+[image10]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 5"
+[image11]:  ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 6"
 
 
 ---
