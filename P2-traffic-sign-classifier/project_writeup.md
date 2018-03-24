@@ -2,9 +2,8 @@
 
 ---
 
-**Build a Traffic Sign Recognition Project**
-
 You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P2-traffic-sign-classifier/Traffic_Sign_Classifier.ipynb)
+
 
 ### Goals
 * Classify traffic signs using a simple Convolutional Neural Network (CNN)
