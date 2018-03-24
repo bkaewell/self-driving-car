@@ -19,12 +19,7 @@
 [image3]: ./output/traffic_sign_normalized.jpg "Traffic Sign Normalized"
 [image4]: ./output/traffic_sign_model_accuracy.jpg "Model Accuracy"
 [image5]: ./output/traffic_sign_loss_accuracy.jpg "Cross Entropy"
-[image6]: ./output/glatteis_gefahr_resized.jpg "Traffic Sign Test 1"
-[image7]: ./output/speed_limit_80_resized.jpg "Traffic Sign Test 2"
-[image8]: ./output/stoppschild_resized.jpg "Traffic Sign Test 3"
-[image9]: ./output/strassenbauarbeiten_resized.jpg "Traffic Sign Test 4"
-[image10]: ./output/uberholverbot_resized.jpg "Traffic Sign Test 5"
-[image11]:  ./output/wild_wechsel_resized.jpg "Traffic Sign Test 6"
+[image6]: ./output/traffic_signs_resized_web.jpg "Traffic Sign Test 1-6"
 
 
 ---
@@ -157,8 +152,7 @@ One common justification for adjusting an architecture would be due to overfitti
 
 When I first conducted a Google search for German traffic signs, it was difficult to find a decent variety of interesting traffic signs on the web.  So, I decided to use Google translate to search for the traffic signs in German instead of English.  As a result, the new search results were significantly better in quality and quantity.  In addition, the images are unique, interesting, and challenging.  Finding good data is always half the battle!  Here are six German traffic signs that I found on the web with my expanded German vocabulary:
 
-![alt text][image6] ![alt text][image7] ![alt text][image8] 
-![alt text][image9] ![alt text][image10] ![alt text][image11]
+![alt text][image6]
 
 The first image might be difficult to classify because the snowflake is blurry.  Plus, there is snow sticking to the top of the sign.
 
