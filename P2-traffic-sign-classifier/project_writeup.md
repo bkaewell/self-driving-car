@@ -101,7 +101,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
 
 ### Model Training
 
-To train the model, I used an Adam Optimizer with the default parameter settings. After numerous trials, I used a batch size of 100 and 45 for the number of training epochs. I used a learning rate of 0.001. The dropout rate for the fully connected layers had a keep probability of 0.60 meaning 60% of the neurons were retained.  I am starting to feel that adjusting the number of epochs, learning rate, and dropout rate is a losing strategy.  If I had realized this sooner, I would have spent more time building multiple prediction algorithms instead and compared their performances to the validation data set.
+To train the model, I used an Adam Optimizer with the default parameter settings. After numerous trials, I used a batch size of 100 and 45 for the number of training epochs. I used a learning rate of 0.001. The dropout rate for the fully connected layers had a keep probability of 0.60 meaning 60% of the neurons were retained.  I am starting to feel that adjusting the number of epochs, learning rate, and dropout rate is a losing strategy.  If I had realized this sooner, I would have spent more time building multiple prediction algorithms instead and selected the one with the highest validation accuracy.  
 
 
 ### Results
@@ -173,6 +173,7 @@ Here are the results of the prediction:
 
 
 The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. This compares pretty favorably to the accuracy on the test set of 93.1% considering I did my own cropping and resizing of random real-world images. I am not surprised that the model did not predict the correct value of the speed limit sign.   
+
 
 ### Model Certainty - Softmax Probabilities
 
