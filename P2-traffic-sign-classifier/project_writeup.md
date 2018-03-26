@@ -69,7 +69,7 @@ The difference between the original data set and the preprocessed data set is th
 
 ### Model Architecture
 
-My final model architecture is a multi-layer CNN to classify the traffic signs from Germany using TensorFlow.  It consisted of the following layers resembling the "LeNet-5" function:
+My final model architecture is a multi-layer CNN to classify the traffic signs from Germany.  It consisted of the following layers resembling the "LeNet-5" function:
 
 |Layer						|Dimension			|Description												| 
 |:-------------------------:|:-----------------:|:---------------------------------------------------------:| 
