@@ -184,7 +184,7 @@ For the first image, the model is relatively sure that this is a beware of ice/s
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .83         			| Beware of ice/snow   							| 
+| .84         			| Beware of ice/snow   							| 
 | .16     				| Children crossing 							|
 | .00					| Slippery road									|
 | .00	      			| Road narrows on the right					 	|
@@ -205,12 +205,12 @@ The second sign was not recognized correctly as the model predicted 30 km/h inst
 
 
 
-The third sign was recognized correctly with 99% confidence.  Notice how the top 5 have either letters or number inside the sign.  No surprises here. 
+The third sign was recognized correctly with 99.99% confidence.  Notice how the top 5 have either letters or number inside the sign, but the reality is the 2nd to 5th predictions are irrelevant in this case.  No surprises here. 
 
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .99         			| Stop sign   									| 
+|1.00         			| Stop sign   									| 
 | .00     				| Speed limit (30km/h) 							|
 | .00					| Speed limit (80km/h)							|
 | .00	      			| Speed limit (60km/h)					 		|
