@@ -64,7 +64,7 @@ Here is an example of a traffic sign image before and after min-max scaling norm
 ![alt text][image3]
 
 
-The difference between the original data set and the preprocessed data set is the dynamic range of the pixels due to normalization with min-max scaling to a pixel intensity range of (0.1, 0.9).  Notice the whites are not as white and the darks are not as dark producing a small variance pixel to pixel.
+The difference between the original data set and the preprocessed data set is the dynamic range of the pixels due to normalization with min-max scaling to a pixel intensity range of (0.1, 0.9).  In the figure above, notice the whites are not as white and the darks are not as dark producing a small variance pixel to pixel.
 
 
 ### Model Architecture
@@ -90,7 +90,6 @@ My final model architecture is a multi-layer CNN to classify the traffic signs f
 |							|					|															| 
 
 Weights for the above CNN are randomized from a normal distribution with zero mean and equal variance.  This prevents the model from getting stuck every time I train it.  Bias vector is set to zero.  These parameters are shared across all layers of the CNN.  
-
 First layer is a CNN with a patch size of 5x5, a stride of 1x1, VALID padding and a depth of 6.  It uses a standard RELU activation function. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch size and VALID padding.  The effect of down sampling is evident when comparing the input and output size in the dimension column in the table above.
 
 Second layer is also a CNN with a patch size of 5x5, a stride of 1x1, VALID padding and a depth of 16.  It uses a standard RELU activation function. I then applied a max pooling technique to down sample the output with a 2x2 stride, 2x2 patch size and VALID padding.
