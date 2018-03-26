@@ -173,7 +173,7 @@ Here are the results of the prediction:
 | Wild animals crossing                         | Wild animals crossing                        |
 
 
-The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. This compares pretty favorably to the accuracy on the test set of 93.1% considering I did my own cropping and resizing of random real-world images. I am not surprised that the model did not predict the speed limit sign.   
+The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83.3%. This compares pretty favorably to the accuracy on the test set of 93.1% considering I did my own cropping and resizing of random real-world images. I am not surprised that the model did not predict the correct value of the speed limit sign.   
 
 ### Model Certainty - Softmax Probabilities
 
