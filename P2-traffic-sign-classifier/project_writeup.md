@@ -102,7 +102,7 @@ The final layer, the output, is a fully connected layer with a width of 43 (tota
 
 ### Model Training
 
-To train the model, I used an Adam Optimizer with the default parameter settings.  After numerous trials, I used a batch size of 100 and 47 for the number of training epochs.  I used a learning rate of 0.001.  The dropout rate for the fully connected had a keep probability of 0.60 meaning 60% of the neurons were retained.
+To train the model, I used an Adam Optimizer with the default parameter settings. After numerous trials, I used a batch size of 100 and 45 for the number of training epochs. I used a learning rate of 0.001. The dropout rate for the fully connected layers had a keep probability of 0.60 meaning 60% of the neurons were retained.  I am starting to feel that adjusting the number of epochs, learning rate, and dropout rate is a losing strategy.  If I had realized this sooner, I would have spent more time building multiple prediction algorithms instead and compared their performances to the validation data set.
 
 
 ### Results
@@ -115,34 +115,24 @@ My final model results were:
 
 ### Solution Approach
 
-I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow. I decided this was suitable for the current problem because the CNN learns to recognize basic lines and curves, then shapes and color blobs, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are:
+I used a CNN architecture called "LeNet-5" and implemented it in TensorFlow and Python. I decided this was suitable for the current problem because the CNN learns to recognize basic lines and curves, then shapes and color blobs, and then increasingly complex objects within the image.  It is a very powerful method to learn and classify images similar to how humans perceive images.  In this traffic sign case, the levels of hierarchy are:
 
 * Lines and curves
 * Blobs of color, simple shapes, like circles and triangles
 * Complex objects (combinations of simple shapes), like pedestrians, animals, and  cars
 * The traffic sign as a whole (a combination of complex objects)
 
-To achieve my goal of 93% validation accuracy, I focused on parameter tuning and created a rough table of key parameters to test.  For example, Normalize vs Min-Max Scaling, no Dropout vs Dropout (with different keep probabilities), batch size, training epochs, and learning rate.  One notable improvement was the removal of the dropouts in the convolutional layers.  After removing those dropouts, I increased the validation accuracy by 3%.  According to the original paper that proposed dropout layers, [Hinton, 2012](https://arxiv.org/pdf/1207.0580.pdf), dropout is more advantageous on fully (dense) connected layers because they contain more parameters than convolutional layers.  Higher parameter counts tend to have excessive co-adaptation in the neurons, which cause overfitting.  This plan adjusts and tests a little bit of everything including preprocessing, regularization, and model training to build a successful and accurate model.  
+To achieve my goal of 93% validation accuracy, I focused on preprocessing and model parameter tuning.  I created a rough table of key parameters to test and configure.  For example, Normalize vs Min-Max Scaling, no Dropout vs Dropout (with different keep probabilities), batch size, training epochs, and learning rate.  One notable improvement was the removal of the dropouts in the convolutional layers.  After removing those dropouts, I increased the validation accuracy by 3%.  According to the original paper that proposed dropout layers, Hinton, 2012, dropout is more advantageous on fully (dense) connected layers because they contain more parameters than convolutional layers. Higher parameter counts tend to have excessive and complex co-adaptation of feature detectors in the training data, which causes overfitting. This plan adjusts and tests a little bit of everything including preprocessing, regularization, and model training to build a successful and accurate model.
 
+The measured accuracy results from training, validation, and testing verify that the final model is highly accurate.  The training accuracy just lets us know how well the model is training and testing on the same data set.  The measured value of 99.8% is almost identical to the standard 100% value, which guarantees correct classification of each training set example.  The final validation accuracy of 94.5% estimates how well my model has been trained.  The validation set is used to measure the ability of the model to generalize on unseen data.  Once I developed a fully-trained model, I evaluated it against the test set.  The final test accuracy of 93.1% estimates how well my model performed on a set of unseen real-world examples. 
 
-
-
-???
-How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
-???
-
+To visualize the model training history, below is a plot showing the model accuracy on the training and validation data sets over training epochs.  The gap between the training and validation accuracy indicates the amount of overfitting.  In the plot, the validation accuracy tracks the training accuracy fairly well, but there is a slight gap between the two curves, which causes some overfitting. One way to reduce the amount of overfitting is to increase the model's capacity (i.e. increase the number of parameters).   
 
 ![alt text][image4]
 
+Another useful thing to track during training is the loss since it is evaluated on the individual batches during the forward pass.  Based on the shape of the curve, we can determine the learning rate.  With lower learning rates, the shape is linear.  With higher learning rates, the shape is exponential.  Ideally, you want a "Goldilocks" learning rate, that is directly in the middle.  In the plot, the results from training show that the learning rate is pretty good.  Here is a plot of the loss or cross entropy over training epochs:
+
 ![alt text][image5]
-
-
--Model evaluation:
--Evaluate how well the loss and accuracy of the model for a given data set
--loss/cost?
-
-
-One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
 
 
 
@@ -187,11 +177,10 @@ The model was able to correctly guess 5 of the 6 traffic signs, which gives an a
 
 ### Model Certainty - Softmax Probabilities
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability.
-
 The code for making predictions on my final model is located in cell #33 of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a beware of ice/snow sign (probability of 0.83), and the image does contain a beware of ice/snow sign.  The top five soft max probabilities were:
+For the first image, the model is relatively sure that this is a beware of ice/snow sign (probability of 0.84), and the image does contain a beware of ice/snow sign.  This result is fairly impressive because it doesn’t get any more real than snow sticking to a beware of ice/snow sign!
+
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -202,7 +191,9 @@ For the first image, the model is relatively sure that this is a beware of ice/s
 | .00				    | Bicycles crossing      						|
 
 
-The second sign was not recognized correctly.  
+
+The second sign was not recognized correctly as the model predicted 30 km/h instead of 80 km/h.  Not only did it get the prediction wrong, but the next highest probability was end of 80 km/h with slashes through it!  This is very interesting since 80 km/h with slashes is more complex than 80 km/h without slashes.  As it turns out, based on the histogram of the training data set distribution, the speed limit 80 km/h is a majority class and the end of speed limit 80 km/h is a minority class.  In fact, the ratio between the two classes is 4:1!  The predicted class of speed limit 30 km/h had one of the most training examples.  This is a prime example where unbalanced distribution exposed the classifier’s flaws.
+
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -213,7 +204,9 @@ The second sign was not recognized correctly.
 | .00				    | Speed limit (50km/h)      					|
 
 
-The third sign was recognized correctly with a 99% confidence.
+
+The third sign was recognized correctly with 99% confidence.  Notice how the top 5 have either letters or number inside the sign.  No surprises here. 
+
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -224,7 +217,9 @@ The third sign was recognized correctly with a 99% confidence.
 | .00				    | Speed limit (50km/h)      					|
 
 
-The fourth sign was recognized correctly with a 100% confidence.
+
+The fourth sign was recognized correctly with 100% confidence.  Top 5 contains objects inside the sign.  Again, no surpises. 
+
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -235,7 +230,9 @@ The fourth sign was recognized correctly with a 100% confidence.
 | .00				    | Dangerous curve to the right      			|
 
 
-The fifth sign was recognized correctly with a 100% confidence.
+
+The fifth sign was recognized correctly with 100% confidence.  The classifier is firing on all cylinders here when the top two probabilities are “no passing” and “end of no passing” for vehicles over 3.5 metric tons.  Although the second best probability was miniscule, it’s still interesting that it was listed in the top 5.  It demonstrates a well behaving model for this particular real-world image.  Obviously in the real world the difference between a pass zone and no pass zone is critical and it’s important to get that right 100% of the time.
+
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -246,7 +243,9 @@ The fifth sign was recognized correctly with a 100% confidence.
 | .00				    | Dangerous curve to the right      			|
 
 
-The sixth sign was recognized correctly with a 99% confidence.
+
+The sixth sign was recognized correctly with a 99% confidence.  I wonder if self-driving cars will use extra sensors and alert the passengers inside the car for wild animal zones since their crossings are totally unpredictable.
+
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -255,7 +254,4 @@ The sixth sign was recognized correctly with a 99% confidence.
 | .00					| Slippery road									|
 | .00	      			| Road narrows on the right					 	|
 | .00				    | Dangerous curve to the left      				|
-
-
-
 
