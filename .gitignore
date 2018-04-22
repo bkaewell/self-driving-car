@@ -2,3 +2,6 @@ P2-traffic-sign-classifier/traffic-signs-data.zip
 P2-traffic-sign-classifier/test.p
 P2-traffic-sign-classifier/train.p
 P2-traffic-sign-classifier/valid.p
+P3-behavioral-cloning/driving_data.tar.gz
+P3-behavioral-cloning/model_archive
+
