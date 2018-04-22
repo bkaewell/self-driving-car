@@ -10,7 +10,7 @@ with open('driving_data/driving_log.csv') as csvfile:
     for line in reader:
         lines.append(line)
 
-# Read images and extract angle measurements from csv file:
+# Read images and extract steering angle measurements from csv file:
 images = []
 measurements = []
 for line in lines:
@@ -34,8 +34,10 @@ for image,measurement in zip(images, measurements):
     aug_images.append(cv2.flip(image,1))
     aug_measurements.append(measurement*-1.0)
 
-    # Dupilcate larger angles (both left/right turns) 
-    # And randomize image brightness:
+
+    # Dupilcate some steering angles and randomize image brightness  
+    # Steering angles are normalized [-1, 1] by default from the recording of training data
+    # The range [-1, 1] corresponds to steering angle range of -/+ 25 degrees
     if (abs(measurement) > 0.1):
         hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
         value = random.randint(0,255)
@@ -43,7 +45,7 @@ for image,measurement in zip(images, measurements):
         aug_images.append(hsv)
         aug_measurements.append(measurement)
 
-    # Duplicate right turn samples (larger positive angle measurements)
+    # Duplicate right turn samples (larger positive steering angles))
     # And randomize image brightness:
     if (measurement > 0.2):
         hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
