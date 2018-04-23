@@ -63,16 +63,27 @@ from keras.layers import Flatten, Dense, Lambda, Cropping2D, Dropout
 from keras.layers.convolutional import Convolution2D
 from keras.layers.pooling import MaxPooling2D
 
+# NVIDIA End to End Deep Learning Model (image to steering angle):
 model = Sequential()
+
+# 2 step Preprocessing: Normalizing, mean-centering 
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
+
+# Crop out sky from the top and the car hood from the bottom
 model.add(Cropping2D(cropping=((70,23),(0,0))))
+
+# Convolutional layers
 model.add(Convolution2D(24,5,5,subsample=(2,2),activation="relu"))
 model.add(Convolution2D(36,5,5,subsample=(2,2),activation="relu"))
 model.add(Convolution2D(48,5,5,subsample=(2,2),activation="relu"))
 model.add(Convolution2D(64,3,3,activation="relu"))
 model.add(Convolution2D(64,3,3,activation="relu"))
+
 model.add(Flatten())
+
+# Fully Connected Layers:
 model.add(Dense(100))
+model.add(Dropout(0.5))
 model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(1))
