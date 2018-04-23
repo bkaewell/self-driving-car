@@ -69,7 +69,7 @@ model = Sequential()
 # 2 step Preprocessing: Normalizing, mean-centering 
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
 
-# Crop out sky from the top and the car hood from the bottom
+# Crop out horizonfrom the top and the car hood from the bottom
 model.add(Cropping2D(cropping=((70,23),(0,0))))
 
 # Convolutional layers
