@@ -11,8 +11,13 @@ The primary goal of my project is to teach a Convolutional Neural Network (CNN) 
 
  
 ![alt text][image02]
+Left Camera
+
 ![alt text][image03]
+Center Camera
+
 ![alt text][image04]
+Right Camera
 
  
 The simulator has two modes: training and autonomous.  For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake.  Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project.  For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle.  This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).   
