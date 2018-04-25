@@ -11,12 +11,15 @@ The primary goal of my project is to teach a Convolutional Neural Network (CNN) 
 
  
 ![alt text][image02]
+
 Left Camera
 
 ![alt text][image03]
+
 Center Camera
 
 ![alt text][image04]
+
 Right Camera
 
  
