@@ -4,6 +4,46 @@
 
 ---
 
+![alt text][image01]
+ 
+
+The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style.  The vehicle is equipped with 3 front sensors- 1 center camera and 2 side cameras.  Here is a set of example images from the car’s point of view at one instant in time on the training track:
+
+ 
+![alt text][image02]
+![alt text][image03]
+![alt text][image04]
+
+ 
+The simulator has two modes: training and autonomous.  For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake.  Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project.  For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle.  This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).   
+
+As a starting point, I collected training data by carefully driving the car down the center of the lane even while making turns for one lap around the track.  After one complete lap, the data scientist in me noticed that a potential steering angle bias was beginning to develop due to the nature of the track.  There are more straight parts of the track than curves.  And more left curves than right curves.  Data augmentation will help this issue, which I discuss later.              
+
+ 
+
+For the next 2 subsequent laps, I decided to limit the data collection     
+
+
+While running the simulator, I found that steering the car with a mouse produced the best steering measurements and training data.  It appeared to be cleaner, smoother, and more natural.
+
+My strategy for collecting training data was …
+
+-To train the network, I launched an AWS EC2 instance attached on a GPU.
+
+ 
+
+I built/developed a behavioral cloning network.  I drove a car around a flat-terrain track (video game style) using a simulator provided by Udacity, collected data, then trained a deep neural network to do the driving for me.
+
+ 
+
+The model had to learn how to handle sharp turns, varying road textures, and different borders that lined the edges of the road.
+
+Used Keras framework with TensorFlow backend...
+
+My data collection approach consisted of center lane driving,
+
+
+
 My project includes the following files:
 * model.py containing the script to create and train the model using a Convolutional Neural Network (CNN)
 * drive.py for driving the car in autonomous mode
@@ -26,9 +66,7 @@ python drive.py model.h5
 * Summarize the results with a written report
 
 
-![alt text][image8]
-![alt text][image9]
-![alt text][image10]
+
 
 
 [//]: # (Image References)
@@ -40,9 +78,11 @@ python drive.py model.h5
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
-[image8]: ./examples/left_2018_04_20_19_13_00_008.jpg "Left Camera Sensor"
-[image9]: ./examples/center_2018_04_20_19_13_00_008.jpg "Center Camera Sensor"
-[image10]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
+[image01]: ./examples/birds_eye.png "Bird's Eye"
+[image02]: ./examples/center_2018_04_20_19_13_00_008.jpg "Center Camera Sensor"
+[image03]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
+[image04]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
+
 
 ---
 
