@@ -65,7 +65,7 @@ The left/right skew is due to driving the car around the track in one direction 
 
 Left Turn Original
 
-![alt text][image09]
+![alt text][image09b]
 
 Flipped
 
@@ -74,7 +74,7 @@ Flipped
 
 Sharp Right Turn Original
 
-![alt text][image11]
+![alt text][image11b]
 
 Sharp Right Turn Brightness
 
@@ -234,9 +234,9 @@ python drive.py model.h5
 [image06]: ./examples/recovery_bridge_before.jpg "Recovery Image Before"
 [image07]: ./examples/recovery_bridge_after.jpg "Recovery Image After"
 [image08]: ./examples/left_turn_original.jpg "Left Turn Original Data Aug"
-[image09]: ./examples/left_turn_flipped.jpg "Left Turn Flippled Data Aug"
+[image09b]: ./examples/left_turn_flipped.jpg "Left Turn Flippled Data Aug"
 [image10]: ./examples/sharp_right_turn_original.jpg "Right Turn Original Aug"
-[image11]: ./examples/sharp_right_turn_bright_aug.jpg "Right Turn Brightened Aug"
+[image11b]: ./examples/sharp_right_turn_bright_aug.jpg "Right Turn Brightened Aug"
 
 
 
