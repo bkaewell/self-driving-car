@@ -72,7 +72,7 @@ To augment the dataset, I also flipped images and angles thinking that this woul
 
 Left Turn Original
 
-![alt text][image09b]
+![alt text][image09]
 
 Flipped
 
