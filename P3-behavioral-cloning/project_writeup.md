@@ -2,12 +2,19 @@
 
 ## Using Deep Learning to Clone Driving Behavior
 
+### Goals
+* Use the simulator to collect data of good driving behavior
+* Build, a convolution neural network in Keras that predicts steering angles from images
+* Train and validate the model with a training and validation set
+* Test that the model successfully drives around track one without leaving the road
+* Summarize the results with a written report
+
 ---
 
 ![alt text][image01]
  
 
-The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style.  The vehicle is equipped with 3 front sensors- 1 center camera and 2 side cameras.  Here is a set of example images from the car’s point of view at one instant in time on the training track:
+The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style. The vehicle is equipped with 3 front sensors- 1 center camera and 2 side cameras. Here is a set of example images from the car’s point of view at one instant in time on the training track:
 
  
 ![alt text][image02]
@@ -23,32 +30,48 @@ Center Camera
 Right Camera
 
  
-The simulator has two modes: training and autonomous.  For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake.  Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project.  For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle.  This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).   
+The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle). 
 
-As a starting point, I collected training data by carefully driving the car down the center of the lane even while making turns for one lap around the track.  After one complete lap, the data scientist in me noticed that a potential steering angle bias was beginning to develop due to the nature of the track.  There are more straight parts of the track than curves.  And more left curves than right curves.  Data augmentation will help this issue, which I discuss later.              
+
+### Training Data Strategy
+
+My strategy for collecting training data focused on the three following areas: normal laps, recovery lap, and generalization laps.  I started collecting the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  I completed 3 normal laps around track one, which is the test track to drive the car autonomously.  Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle.  To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction on track one to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 39,000 images.  Below is the distribution of the steering angles that I recorded:               
+
+![alt text][image05]
+ 
+
+Histogram of Steering Angles: the range [-1, 1] corresponds to the angle range -/+ 25 deg'
+
+Due to the characteristics of the training track, there are more straight sections on the track than curve sections and more left turns than right turns causing an unbalanced dataset.  To combat the angle bias, let’s try an effective technique called data augmentation.
 
  
 
-For the next 2 subsequent laps, I decided to limit the data collection     
+The left/right skew is due to driving the car around the track in one direction only and can be eliminated by flipping each recorded image and its corresponding steering angle. More troublesome is the bias to driving straight: the rare cases, when a large steering angle recorded are also the most important ones if the car is to stay on the road.
 
 
-While running the simulator, I found that steering the car with a mouse produced the best steering measurements and training data.  It appeared to be cleaner, smoother, and more natural.
+### Data Augmentation
 
-My strategy for collecting training data was …
+Flipping Images And Steering Measurements
+
+A effective technique for helping with the left turn bias involves flipping images and taking the opposite sign of the steering measurement.
+
+
+
 
 -To train the network, I launched an AWS EC2 instance attached on a GPU.
 
+- Used Keras framework with TensorFlow backend... 
+
+I built/developed a behavioral cloning network. I drove a car around a flat-terrain track (video game style) using a simulator provided by Udacity, collected data, then trained a deep neural network to do the driving for me.
+
  
-
-I built/developed a behavioral cloning network.  I drove a car around a flat-terrain track (video game style) using a simulator provided by Udacity, collected data, then trained a deep neural network to do the driving for me.
-
- 
-
 The model had to learn how to handle sharp turns, varying road textures, and different borders that lined the edges of the road.
 
-Used Keras framework with TensorFlow backend...
+ 
 
-My data collection approach consisted of center lane driving,
+Archive:
+
+As a starting point, I collected the training data by carefully driving the car as close to the middle of the road as possible even when making turns for one lap around the track. After one complete lap, I noticed that a potential steering angle bias was developing due to the characteristics of the training track. Overall, there are more straight sections on the track than curve sections (and more left turns than right turns).  As a result, the steering angle was very close to zero most of the time.  I collected additional training data on two laps of center lane driving with greater emphasis on curve training than straight driving training to help balance the dataset.  Next I focused on recovery training.      
 
 
 
@@ -66,12 +89,7 @@ Using the Udacity provided simulator and my drive.py file, the car can be driven
 python drive.py model.h5
 ```
 
-### Goals
-* Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
-* Train and validate the model with a training and validation set
-* Test that the model successfully drives around track one without leaving the road
-* Summarize the results with a written report
+
 
 
 
@@ -87,10 +105,10 @@ python drive.py model.h5
 [image7]: ./examples/placeholder_small.png "Flipped Image"
 
 [image01]: ./examples/birds_eye.png "Bird's Eye"
-[image02]: ./examples/center_2018_04_20_19_13_00_008.jpg "Center Camera Sensor"
-[image03]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
+[image02]: ./examples/left_2018_04_20_19_13_00_008.jpg "Left Camera Sensor"
+[image03]: ./examples/center_2018_04_20_19_13_00_008.jpg "Center Camera Sensor"
 [image04]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
-
+[image05]: ./examples/steering_angles_histogram.jpg "Steering Angles Histogram"
 
 ---
 
