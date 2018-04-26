@@ -38,7 +38,7 @@ To prevent the CNN from memorizing track one, I collected data by driving the ca
 
 ![alt text][image05]
  
-Aside from the strong peak in the middle, I am pleasantly surprised by how balanced the steering angles are for the left turns (negative values) and right turns (positive) in the training dataset.  I believe an area of improvement would be to balance out the training dataset by up-sampling the minority classes. One approach is . This would reinforce the minority classes' signal while reducing potential bias in the model towards the majority classes.
+Aside from the very strong peak in the middle of the distribution, I am pleasantly surprised by how balanced the steering angles are for the left turns (negative values) and right turns (positive values) in the training dataset.  I believe an area of improvement would be to balance out the training dataset by up-sampling the minority classes. One approach is . This would reinforce the minority classes' signal while reducing potential bias in the model towards the majority classes.
 
 
 Due to the characteristics of the training track, the steering angle was virtually zero most of the time.
@@ -79,7 +79,47 @@ My model consists of a CNN with strided convolutions in the first three convolut
 
 The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70). 
 
-The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). 
+The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86).
+
+
+
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to                     
+======================================================
+lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
+____________________________________________________________________________________________________
+cropping2d_1 (Cropping2D)        (None, 67, 320, 3)    0           lambda_1[0][0]                   
+____________________________________________________________________________________________________
+convolution2d_1 (Convolution2D)  (None, 32, 158, 24)   1824        cropping2d_1[0][0]               
+____________________________________________________________________________________________________
+convolution2d_2 (Convolution2D)  (None, 14, 77, 36)    21636       convolution2d_1[0][0]            
+____________________________________________________________________________________________________
+convolution2d_3 (Convolution2D)  (None, 5, 37, 48)     43248       convolution2d_2[0][0]            
+____________________________________________________________________________________________________
+convolution2d_4 (Convolution2D)  (None, 3, 35, 64)     27712       convolution2d_3[0][0]            
+____________________________________________________________________________________________________
+convolution2d_5 (Convolution2D)  (None, 1, 33, 64)     36928       convolution2d_4[0][0]            
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 2112)          0           convolution2d_5[0][0]            
+____________________________________________________________________________________________________
+dense_1 (Dense)                  (None, 100)           211300      flatten_1[0][0]                  
+____________________________________________________________________________________________________
+dropout_1 (Dropout)              (None, 100)           0           dense_1[0][0]                    
+____________________________________________________________________________________________________
+dense_2 (Dense)                  (None, 50)            5050        dropout_1[0][0]                    
+____________________________________________________________________________________________________
+dense_3 (Dense)                  (None, 10)            510         dense_2[0][0]                    
+____________________________________________________________________________________________________
+dense_4 (Dense)                  (None, 1)             11          dense_3[0][0]                    
+======================================================
+Total params: 348,219
+Trainable params: 348,219
+Non-trainable params: 0
+
+
+
+
+
 
 The model was trained and validated on different datasets to ensure that the model was not overfitting (model.py lines 67-92). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
@@ -132,7 +172,7 @@ python drive.py model.h5
 -1. Solution Design Approach
 The overall strategy for deriving a model architecture was to ...
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+My first step was to use a CNN model similar to the ... I thought this model might be appropriate because ...
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
@@ -146,7 +186,7 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 -2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model.py lines 67-92) consisted of a CNN with the following layers and layer sizes ...
 
 Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
 
