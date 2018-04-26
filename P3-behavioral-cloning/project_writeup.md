@@ -37,7 +37,8 @@ I started collecting the training data by carefully driving the car as close to 
 Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle.  Below is an example of the recovery data collection process on the bridge.
 
 
-![alt text][image06]![alt text][image07]
+![alt text][image06]     ![alt text][image07]
+
 Right Side Bridge Recovery / Corrected
 
 
