@@ -35,13 +35,17 @@ My strategy for collecting training data focused on the three following areas: n
 
 Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle.  
 
-To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction on track one to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:              
+To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:              
 
 ![alt text][image05]
  
-Histogram of Steering Angles: the range [-1, 1] corresponds to the angle range -/+ 25 deg'
+Aside from the strong peak in the middle, I am pleasantly surprised by how balanced the steering angles are for the left turns (negative values) and right turns (positive) in the training dataset.  I believe an area of improvement would be to balance out the training dataset by up-sampling the minority classes. One approach is . This would reinforce the minority classes' signal while reducing potential bias in the model towards the majority classes.
 
-Due to the characteristics of the training track, there are more straight sections on the track than curve sections and more left turns than right turns causing an unbalanced dataset.  To combat the angle bias, let’s try an effective technique called data augmentation.
+
+Due to the characteristics of the training track, the steering angle was virtually zero most of the time.
+
+
+there are more straight sections on the track than curve sections and slightly more left turns than right turns causing an unbalanced dataset.  To combat the angle bias, let’s try an effective technique called data augmentation.
 
  
 
@@ -55,15 +59,6 @@ Flipping Images And Steering Measurements
 A effective technique for helping with the left turn bias involves flipping images and taking the opposite sign of the steering measurement.
 
 
-
-
--To train the network, I launched an AWS EC2 instance attached on a GPU.
-
-- Used Keras framework with TensorFlow backend... 
-
-I built/developed a behavioral cloning network. I drove a car around a flat-terrain track (video game style) using a simulator provided by Udacity, collected data, then trained a deep neural network to do the driving for me.
-
- 
 The model had to learn how to handle sharp turns, varying road textures, and different borders that lined the edges of the road.
 
  
@@ -74,25 +69,30 @@ As a starting point, I collected the training data by carefully driving the car 
 
 
 
-My project includes the following files:
-* model.py containing the script to create and train the model using a Convolutional Neural Network (CNN)
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained CNN
-* writeup_report.md summarizing the results
-* video.mp4 containing a video recording of my vehicle driving autonomously one lap around the track
 
-<i>You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P3-behavioral-cloning/)</i>
+### Model Architecture and Training
 
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
-```sh
-python drive.py model.h5
-```
+<i>My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
+
+I developed a behavioral cloning network using Keras framework with Tensorflow back-end.
+
+My model consists of a CNN with strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel, and a non-strided convolution with a 3×3 kernel size in the final two convolutional layers.  It had depths between 24 and 64 (model.py lines 76-80)
+
+The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70). 
+
+The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). 
+
+The model was trained and validated on different datasets to ensure that the model was not overfitting (model.py lines 67-92). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 91).
+
+I trained the network by launching an AWS EC2 instance attached on a GPU.  For any given set of hyperparameters, the loss typically stopped decreasing around 5 epochs.
 
 
+### Results
 
 
-
-
+### References
 
 [//]: # (Image References)
 [image1]: ./examples/placeholder.png "Model Visualization"
@@ -111,20 +111,19 @@ python drive.py model.h5
 
 ---
 
+My project includes the following files:
+* model.py containing the script to create and train the model using a Convolutional Neural Network (CNN)
+* drive.py for driving the car in autonomous mode
+* model.h5 containing a trained CNN
+* writeup_report.md summarizing the results
+* video.mp4 containing a video recording of my vehicle driving autonomously one lap around the track
 
-### Model Architecture and Training
+<i>You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P3-behavioral-cloning/)</i>
 
-<i>My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
-
-My model consists of a CNN with strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel, and a non-strided convolution with a 3×3 kernel size in the final two convolutional layers.  It had depths between 24 and 64 (model.py lines 76-80)
-
-The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70). 
-
-The model contains a dropout layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). 
-
-The model was trained and validated on different datasets to ensure that the model was not overfitting (model.py lines 67-92). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
-
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 91).
+Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
+```sh
+python drive.py model.h5
+```
 
 
 ### Model Architecture and Training Documentation
