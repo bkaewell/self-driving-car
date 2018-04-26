@@ -14,9 +14,8 @@
 ![alt text][image01]
  
 
-The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style. The vehicle is equipped with 3 front sensors- 1 center camera and 2 side cameras. Here is a set of example images from the car’s point of view at one instant in time on the training track:
+The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style. The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).  The vehicle is equipped with 3 front-facing sensors located in the center and on the sides. Here is a set of example images from the car’s point of view at one instant in time on the training track:
 
- 
 ![alt text][image02]
 
 Left Camera
@@ -29,20 +28,17 @@ Center Camera
 
 Right Camera
 
- 
-The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle). 
-
 
 ### Training Data Strategy
 
-My strategy for collecting training data focused on the three following areas: normal laps, recovery lap, and generalization laps.  I started collecting the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  I completed 3 normal laps around track one, which is the designated test track to autonomously drive the car.  
+My strategy for collecting training data focused on the three following areas: normal laps, recovery lap, and generalization laps.  I started collecting the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  I completed 3 normal laps around track one, which is the designated test track to autonomously drive the car.
+
 Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle.  
 
-To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction on track one to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 39,000 images.  Below is the distribution of the steering angles that I recorded:               
+To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction on track one to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:              
 
 ![alt text][image05]
  
-
 Histogram of Steering Angles: the range [-1, 1] corresponds to the angle range -/+ 25 deg'
 
 Due to the characteristics of the training track, there are more straight sections on the track than curve sections and more left turns than right turns causing an unbalanced dataset.  To combat the angle bias, let’s try an effective technique called data augmentation.
@@ -116,29 +112,20 @@ python drive.py model.h5
 ---
 
 
-## Model Architecture and Training Strategy
+### Model Architecture and Training
 
--1. An appropriate model architecture has been employed
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+<i>My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
 
+My model consists of a CNN with strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel, and a non-strided convolution with a 3×3 kernel size in the final two convolutional layers.  It had depths between 24 and 64 (model.py lines 76-80)
 
-<i>The model I used was the [NVIDIA model](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
+The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70). 
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model contains a dropout layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). 
 
--2. Attempts to reduce overfitting in the model
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model was trained and validated on different datasets to ensure that the model was not overfitting (model.py lines 67-92). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 91).
 
--3. Model parameter tuning
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
-
--4. Appropriate training data
-
-Training data was chosen to keep the vehicle driving on the road. I used a combination of center lane driving, recovering from the left and right sides of the road ... 
-
-For details about how I created the training data, see the next section. 
 
 ### Model Architecture and Training Documentation
 
