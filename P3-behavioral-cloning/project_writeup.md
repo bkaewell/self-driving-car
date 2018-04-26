@@ -16,15 +16,12 @@
 The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style. The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect good training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).  The vehicle is equipped with 3 front-facing sensors located in the center and on the sides. Here is a set of example images from the car’s point of view at one instant in time on the training track:
 
 ![alt text][image02]
-
 Left Camera
 
 ![alt text][image03]
-
 Center Camera
 
 ![alt text][image04]
-
 Right Camera
 
 
@@ -37,9 +34,11 @@ I started collecting the training data by carefully driving the car as close to 
 Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle.  Below is an example of the recovery data collection process on the bridge.
 
 
-![alt text][image06]     ![alt text][image07]
+![alt text][image06]
+Right Side Recovery Start
 
-Right Side Bridge Recovery / Corrected
+![alt text][image07]
+Right Side Recovery End
 
 
 To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:              
