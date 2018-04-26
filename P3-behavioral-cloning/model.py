@@ -35,7 +35,7 @@ for image,measurement in zip(images, measurements):
     aug_measurements.append(measurement*-1.0)
 
 
-    # Dupilcate some steering angles and randomize image brightness  
+    # Duplicate some steering angles and randomize image brightness  
     # Steering angles are normalized [-1, 1] by default from the recording of training data
     # The range [-1, 1] corresponds to steering angle range of -/+ 25 degrees
     if (abs(measurement) > 0.1):
@@ -69,7 +69,7 @@ model = Sequential()
 # 2 step Preprocessing: Normalizing, mean-centering 
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
 
-# Crop out horizonfrom the top and the car hood from the bottom
+# Crop out horizon from the top and the car hood from the bottom
 model.add(Cropping2D(cropping=((70,23),(0,0))))
 
 # Convolutional layers
