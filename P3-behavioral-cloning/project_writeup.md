@@ -3,19 +3,19 @@
 ## Using Deep Learning to Clone Driving Behavior
 
 ### Goals
-* Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
+* Use the simulator provided by Udacity to collect data of good driving behavior
+* Build a Convolutional Neural Network (CNN) in Keras with TensorFlow back-end that predicts steering angles from images
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
 ---
 
-![alt text YOO][image01]
+![alt text][image01]
+Example of Center Lane Driving
 
-![YOO][image01]
 
 
-The primary goal of my project is to teach a Convolutional Neural Network (CNN) to drive a car in a simulator provided by Udacity, arcade-style. The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect solid training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).  The vehicle is equipped with 3 front-facing sensors located in the center and on both sides. Here is a set of example images from the car’s point of view at one instant in time on the training track:
+The primary goal of my project is to teach a CNN to drive a car arcade-style in a simulator. The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect solid training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).  The vehicle is equipped with 3 front-facing sensors located in the center and on both sides. Here is a set of example images from the car’s point of view at one instant in time on the training track:
 
 ![alt text][image02]
 
@@ -32,36 +32,41 @@ Right Camera
 
 ### Training Data Strategy
 
-My strategy for collecting training data focused on the following areas: normal laps, recovery laps, and generalization laps. Although image data was available from 3 different sensors by default, I decided to only use images recorded by the center camera.
+My strategy for collecting training data focused on the following areas: normal laps, recovery laps, and generalization laps. Although image data was available from 3 different cameras, I decided to only use images recorded by the center camera.
 
-I started collecting the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  I completed 3 normal laps around track one, which is the designated test track to autonomously drive the car.
+I first recorded the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  To capture good driving behavior, I recorded 3 normal laps on track one using center lane driving.  This is the designated track to evaluate the model’s performance for an autonomous vehicle.  Here is an example image of center lane driving:???
 
-Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short, lasting about 2-3 seconds.  I trained for approximately one lap alternating the recovery start sides to create balanced data.  Below is an example of the recovery data collection process on the bridge.
+I then recorded the vehicle recovering from the left side and right side of the road back to the center so that the vehicle would learn to return to the middle when it wanders off to the side.  This was also performed on track one.  It was very important to disable recording when I intentionally drove the car to either side of the road to setup the recovery training because I did not want to teach the network bad driving habits to drift off to the side.  So I only collected recovery data when the car was driving from the side of the road back toward the middle.  Each recovery training interval was very short, lasting about 2-3 seconds (~50 images).  I trained for approximately one lap alternating between sides to create a balanced and diverse dataset.  One lap was sufficient because it allowed the network to learn different road textures and borders for side recoveries.  These images show what a recovery looks like starting from the right side on the bridge: 
 
 
 ![alt text][image06]
 
-Right Side Recovery Start
+Recovery Start (Right Shoulder)
 
 ![alt text][image07]
 
-Right Side Recovery End (Re-centered)
+Recovery End (Re-centered)
 
 
-To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  
+To prevent the CNN from memorizing track one, I recorded the car driving in the opposite direction to collect more data points.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on track two, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I only trained on flat terrain with greater emphasis on smoothly executing sharp turns.
 
 Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:
 
 
 ![alt text][image05]
 
-As expected, the steering angles were virtually zero most of the time due to the oval characteristics of the training track.  Aside from the very strong peak in the middle of the distribution, I am pleasantly surprised by how well the steering angles were balanced for the left turns (negative values) and right turns (positive values) in my training dataset.  However, there was still a noticeable left turn data skew compared to the right turns.  After numerous failed attempts of crashing into the lake on sharp right turns, I decided to augment the data.     
+As expected, the steering angles were virtually zero most of the time due to the loop in the training track that had more straight sections than curve sections.  Aside from the very strong peak in the middle of the distribution, I am pleasantly surprised by how well the steering angles were balanced for the left turns (negative values) and right turns (positive values) in my training dataset.  However, right turns were still a little under sampled compared to left turns.     
     
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set.  I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. To combat the overfitting, I modified the model so that ...??????????????????
 
-The left/right skew is due to driving the car around the track in one direction only and can be eliminated by flipping each recorded image and its corresponding steering angle. More troublesome is the bias to driving straight: the rare cases, when a large steering angle recorded are also the most important ones if the car is to stay on the road.
+With the combination of training on normal laps, recovery laps, and generalization laps, I discovered that it was not enough data to train my model to drive properly.  After running my newly trained model and predicting steering measurements in autonomous mode, my car consistently crashed into the lake on the sharp right turn after the bridge.  Things didn’t go perfectly, so now it’s time to discuss data augmentation to combat the biases.
+
+The final step was to run the simulator to see how well the car was driving around track one.  There was one specific spot where the vehicle fell off the track on the first sharp right turn after the bridge.  To improve the driving behavior in this case, I decided to augment the data for the extreme positive steering angles.  At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road.
 
 
-### Data Augmentation
+### Image and Data Augmentation
+
+To augment the dataset, I also flipped images and angles thinking that this would eliminate the left/right data skew.  For example, here is an image that has then been flipped:
 
 ![alt text][image08]
 
@@ -72,13 +77,22 @@ Left Turn Original
 Flipped
 
 
+In addition, I added images above a certain angle threshold (-/+ 0.1) and randomly varied the brightness of the image thinking that this would help reinforce both left and right turns while teaching the model new brightness patterns.
+
+
+
+
 ![alt text][image10]
 
 Sharp Right Turn Original
 
-![alt text][image11b]
+![alt text][image11]
 
-Sharp Right Turn Brightness
+Sharp Right Turn Sunny
+
+![alt text][image12]
+
+Sharp Right Turn Shady
 
 
 
@@ -153,7 +167,7 @@ My model consists of a CNN with strided convolutions in the first three convolut
 
 The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70).  It also uses a cropping layer to remove the horizon from the top of the image and the hood of the car from the bottom (model.py line 73). 
 
-The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). The summary of my model is shown below.
+The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). Here is a visualization of the CNN architecture:
 
 ```
 ____________________________________________________________________________________________________
@@ -221,13 +235,6 @@ python drive.py model.h5
 ```
 
 [//]: # (Image References)
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
-
 [image01]: ./examples/birds_eye.png "Bird's Eye"
 [image02]: ./examples/left_2018_04_20_19_13_00_008.jpg "Left Camera Sensor"
 [image03]: ./examples/center_2018_04_20_19_13_00_008.jpg "Center Camera Sensor"
@@ -236,10 +243,9 @@ python drive.py model.h5
 [image06]: ./examples/recovery_bridge_before.jpg "Recovery Image Before"
 [image07]: ./examples/recovery_bridge_after.jpg "Recovery Image After"
 [image08]: ./examples/left_turn_original.jpg "Left Turn Original Data Aug"
-[image09b]: ./examples/left_turn_flipped.jpg "Left Turn Flippled Data Aug"
+[image09]: ./examples/left_turn_flipped.jpg "Left Turn Flippled Data Aug"
 [image10]: ./examples/sharp_right_turn_original.jpg "Right Turn Original Aug"
-[image11b]: ./examples/sharp_right_turn_bright_aug.jpg "Right Turn Brightened Aug"
-
-
+[image11]: ./examples/sharp_right_turn_sunny_aug.jpg "Right Turn Brightened Aug"
+[image12]: ./examples/sharp_right_turn_shady_aug.jpg "Right Turn Darkened Aug"
 
 
