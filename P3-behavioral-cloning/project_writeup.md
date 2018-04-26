@@ -30,9 +30,21 @@ Right Camera
 
 ### Training Data Strategy
 
-My strategy for collecting training data focused on the three following areas: normal laps, recovery lap, and generalization laps.  I started collecting the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  I completed 3 normal laps around track one, which is the designated test track to autonomously drive the car.
+My strategy for collecting training data focused on the following areas: normal laps, recovery laps, and generalization laps. Although image data was available from 3 different sensors by default, I decided to only use images from the center camera.   
 
-Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle.  
+I started collecting the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  I completed 3 normal laps around track one, which is the designated test track to autonomously drive the car.
+
+Next I focused on recovery training to teach the car what to do when it’s off to the side of the road.  This was also performed on track one.  I only collected recovery data when the car is driving from the side of the road back toward the middle.  Each recovery training interval was short lasting about 2-3 seconds.  I trained for approximately one lap alternating the recoveries from the left and right sides back to the middle. 
+
+
+![alt text][image06]
+
+
+![alt text][image07]
+
+
+
+
 
 To prevent the CNN from memorizing track one, I collected data by driving the car in the opposite direction to help the model generalize.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on the second track, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I trained on flat terrain with greater emphasis on smoothly executing turns on track two.  Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:              
 
@@ -58,34 +70,30 @@ Flipping Images And Steering Measurements
 A effective technique for helping with the left turn bias involves flipping images and taking the opposite sign of the steering measurement.
 
 
-The model had to learn how to handle sharp turns, varying road textures, and different borders that lined the edges of the road.
 
  
 
-Archive:
-
-As a starting point, I collected the training data by carefully driving the car as close to the middle of the road as possible even when making turns for one lap around the track. After one complete lap, I noticed that a potential steering angle bias was developing due to the characteristics of the training track. Overall, there are more straight sections on the track than curve sections (and more left turns than right turns).  As a result, the steering angle was very close to zero most of the time.  I collected additional training data on two laps of center lane driving with greater emphasis on curve training than straight driving training to help balance the dataset.  Next I focused on recovery training.      
+    
 
 
 
 
 ### Model Architecture and Training
 
-<i>My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
+I implemented a behavioral cloning network using Keras framework with Tensorflow back-end.
 
-I developed a behavioral cloning network using Keras framework with Tensorflow back-end.
+<i>My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
 
 My model consists of a CNN with strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel, and a non-strided convolution with a 3×3 kernel size in the final two convolutional layers.  It had depths between 24 and 64 (model.py lines 76-80)
 
-The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70). 
+The model includes RELU layers to introduce nonlinearity (model.py lines 76-80), and the data is normalized in the model using a Keras lambda layer (model.py line 70).  It also uses a cropping layer to remove the horizon from the top of the image and the hood of the car from the bottom (model.py line 73). 
 
-The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86).
-
+The model contains a dropout regularization layer at the point in the network with the most parameters in order to reduce overfitting (model.py line 86). The summary of my model is shown below.
 
 ```
 ____________________________________________________________________________________________________
 Layer (type)                     Output Shape          Param #     Connected to                     
-____________________________________________________________________________________________________
+= ==================================================================================================
 lambda_1 (Lambda)                (None, 160, 320, 3)   0           lambda_input_1[0][0]             
 ____________________________________________________________________________________________________
 cropping2d_1 (Cropping2D)        (None, 67, 320, 3)    0           lambda_1[0][0]                   
@@ -111,17 +119,13 @@ ________________________________________________________________________________
 dense_3 (Dense)                  (None, 10)            510         dense_2[0][0]                    
 ____________________________________________________________________________________________________
 dense_4 (Dense)                  (None, 1)             11          dense_3[0][0]                    
-____________________________________________________________________________________________________
+= ==================================================================================================
 Total params: 348,219
 Trainable params: 348,219
 Non-trainable params: 0
 ```
 
-
-
-
-
-The model was trained and validated on different datasets to ensure that the model was not overfitting (model.py lines 67-92). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different datasets to ensure that the model was not overfitting (model.py lines 67-92). The model was tested by running it through the simulator and verifying that the vehicle could stay on the track.
 
 The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 91).
 
@@ -129,6 +133,8 @@ I trained the network by launching an AWS EC2 instance attached on a GPU.  For a
 
 
 ### Results
+
+The model had to learn how to handle sharp turns, varying road textures, and different borders that lined the edges of the road.
 
 <i>You can find a video of my car navigating the test track in autonomous mode [here](https://youtu.be/a6wvZnbKRT4)</i>
 
@@ -152,8 +158,7 @@ python drive.py model.h5
 [//]: # (Image References)
 [image1]: ./examples/placeholder.png "Model Visualization"
 [image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/recovery_bridge_before.jpg "Recovery Image"
-[image4]: ./examples/recovery_bridge_after.jpg "Recovery Image"
+
 [image5]: ./examples/placeholder_small.png "Recovery Image"
 [image6]: ./examples/placeholder_small.png "Normal Image"
 [image7]: ./examples/placeholder_small.png "Flipped Image"
@@ -163,14 +168,13 @@ python drive.py model.h5
 [image03]: ./examples/center_2018_04_20_19_13_00_008.jpg "Center Camera Sensor"
 [image04]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
 [image05]: ./examples/steering_angles_histogram.jpg "Steering Angles Histogram"
-
+[image06]: ./examples/recovery_bridge_before.jpg "Recovery Image Before"
+[image07]: ./examples/recovery_bridge_after.jpg "Recovery Image After"
 
 
 
 ### Model Architecture and Training Documentation
 
--1. Solution Design Approach
-The overall strategy for deriving a model architecture was to ...
 
 My first step was to use a CNN model similar to the ... I thought this model might be appropriate because ...
 
