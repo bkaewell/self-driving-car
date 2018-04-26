@@ -8,7 +8,6 @@
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
-
 ---
 
 ![alt text][image01]
@@ -91,8 +90,24 @@ I trained the network by launching an AWS EC2 instance attached on a GPU.  For a
 
 ### Results
 
+<i>You can find a video of my car navigating the test track in autonomous mode [here](https://youtu.be/a6wvZnbKRT4)</i>
+
 
 ### References
+
+<i>You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P3-behavioral-cloning/)</i>
+
+My project includes the following files:
+* model.py containing the script to create and train the model using a Convolutional Neural Network (CNN)
+* drive.py for driving the car in autonomous mode
+* model.h5 containing a trained CNN
+* writeup_report.md summarizing the results
+* video.mp4 containing a video recording of my vehicle driving autonomously one lap around the track
+
+Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
+```sh
+python drive.py model.h5
+```
 
 [//]: # (Image References)
 [image1]: ./examples/placeholder.png "Model Visualization"
@@ -109,21 +124,7 @@ I trained the network by launching an AWS EC2 instance attached on a GPU.  For a
 [image04]: ./examples/right_2018_04_20_19_13_00_008.jpg "Right Camera Sensor"
 [image05]: ./examples/steering_angles_histogram.jpg "Steering Angles Histogram"
 
----
 
-My project includes the following files:
-* model.py containing the script to create and train the model using a Convolutional Neural Network (CNN)
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained CNN
-* writeup_report.md summarizing the results
-* video.mp4 containing a video recording of my vehicle driving autonomously one lap around the track
-
-<i>You can find my project code [here](https://github.com/bkaewell/self-driving-car/blob/master/P3-behavioral-cloning/)</i>
-
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
-```sh
-python drive.py model.h5
-```
 
 
 ### Model Architecture and Training Documentation
