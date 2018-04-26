@@ -243,9 +243,9 @@ python drive.py model.h5
 [image06]: ./examples/recovery_bridge_before.jpg "Recovery Image Before"
 [image07]: ./examples/recovery_bridge_after.jpg "Recovery Image After"
 [image08]: ./examples/left_turn_original.jpg "Left Turn Original Data Aug"
-[image09c]: ./examples/left_turn_flipped.jpg "Left Turn Flippled Data Aug"
+[image09]: ./examples/left_turn_flipped.jpg "Left Turn Flippled Data Aug"
 [image10]: ./examples/sharp_right_turn_original.jpg "Right Turn Original Aug"
-[image11b]: ./examples/sharp_right_turn_sunny_aug.jpg "Right Turn Brightened Aug"
-[image12b]: ./examples/sharp_right_turn_shady_aug.jpg "Right Turn Darkened Aug"
+[image11]: ./examples/sharp_right_turn_sunny_aug.jpg "Right Turn Brightened Aug"
+[image12]: ./examples/sharp_right_turn_shady_aug.jpg "Right Turn Darkened Aug"
 
 
