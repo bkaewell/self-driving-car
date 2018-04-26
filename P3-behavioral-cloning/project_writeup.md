@@ -68,11 +68,11 @@ The final step was to run the simulator to see how well the car was driving arou
 
 To augment the dataset, I also flipped images and angles thinking that this would eliminate the left/right data skew.  For example, here is an image that has then been flipped:
 
-![alt text][image08]
+![alt text][image08] ![alt text][image09]
 
 Left Turn Original
 
-![alt text][image09c]
+![alt text][image09]
 
 Flipped
 
@@ -86,11 +86,11 @@ In addition, I added images above a certain angle threshold (-/+ 0.1) and random
 
 Sharp Right Turn Original
 
-![alt text][image11b]
+![alt text][image11]
 
 Sharp Right Turn Sunny
 
-![alt text][image12b]
+![alt text][image12]
 
 Sharp Right Turn Shady
 
