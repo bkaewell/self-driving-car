@@ -10,12 +10,8 @@
 * Summarize the results with a written report
 ---
 
-![alt text][image01]
-Example of Center Lane Driving
-
-
-
 The primary goal of my project is to teach a CNN to drive a car arcade-style in a simulator. The simulator has two modes: training and autonomous. For training mode, the sensors output a video stream and records the values of steering angle, speed, throttle, and brake. Due to the many interesting features of the track (sharp turns, road textures, road borders, etc.), it is crucial to collect solid training data to ensure a successful model for this project. For autonomous mode, the end to end deep learning model processes image data from its sensors and makes a single prediction for the steering angle. This actually turns out to be a regression network instead of a classification network, since the output layer of the model outputs a single node (steering angle).  The vehicle is equipped with 3 front-facing sensors located in the center and on both sides. Here is a set of example images from the car’s point of view at one instant in time on the training track:
+
 
 ![alt text][image02]
 
@@ -34,7 +30,11 @@ Right Camera
 
 My strategy for collecting training data focused on the following areas: normal laps, recovery laps, and generalization laps. Although image data was available from 3 different cameras, I decided to only use images recorded by the center camera.
 
-I first recorded the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  To capture good driving behavior, I recorded 3 normal laps on track one using center lane driving.  This is the designated track to evaluate the model’s performance for an autonomous vehicle.  Here is an example image of center lane driving:???
+I first recorded the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  To capture good driving behavior, I recorded 3 normal laps on track one using center lane driving.  This is the designated track to evaluate the model’s performance for an autonomous vehicle.  Here is an example image of center lane driving:
+
+
+![alt text][image01]
+
 
 I then recorded the vehicle recovering from the left side and right side of the road back to the center so that the vehicle would learn to return to the middle when it wanders off to the side.  This was also performed on track one.  It was very important to disable recording when I intentionally drove the car to either side of the road to setup the recovery training because I did not want to teach the network bad driving habits to drift off to the side.  So I only collected recovery data when the car was driving from the side of the road back toward the middle.  Each recovery training interval was very short, lasting about 2-3 seconds (~50 images).  I trained for approximately one lap alternating between sides to create a balanced and diverse dataset.  One lap was sufficient because it allowed the network to learn different road textures and borders for side recoveries.  These images show what a recovery looks like starting from the right side on the bridge: 
 
@@ -50,16 +50,14 @@ Recovery End (Re-centered)
 
 To prevent the CNN from memorizing track one, I recorded the car driving in the opposite direction to collect more data points.  Driving in the opposite direction essentially gives the model a brand new track to learn, which helps the model generalize better.  Furthermore, I collected some training data on track two, which is more challenging with a mix of steep hills, sharp turns, and road debris.  I only trained on flat terrain with greater emphasis on smoothly executing sharp turns.
 
-Overall, my final training dataset consisted of 16,430 images.  Below is the distribution of the steering angles that I recorded:
+Overall, my final training dataset consisted of 16,430 samples.  Below is the distribution of the steering angles that I recorded:
 
 
 ![alt text][image05]
 
-As expected, the steering angles were virtually zero most of the time due to the loop in the training track that had more straight sections than curve sections.  Aside from the very strong peak in the middle of the distribution, I am pleasantly surprised by how well the steering angles were balanced for the left turns (negative values) and right turns (positive values) in my training dataset.  However, right turns were still a little under sampled compared to left turns.     
-    
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set.  I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. To combat the overfitting, I modified the model so that ...??????????????????
+As expected, zero degree steering was heavily over sampled due to the loop in the training track that had more straight sections than curve sections.  Aside from the spike in the middle of the distribution, I had a pretty decent distribution on both negative (left turns) and positive (right turns) steering angles.  However, right turns were still slightly under sampled compared to left turns.
 
-With the combination of training on normal laps, recovery laps, and generalization laps, I discovered that it was not enough data to train my model to drive properly.  After running my newly trained model and predicting steering measurements in autonomous mode, my car consistently crashed into the lake on the sharp right turn after the bridge.  Things didn’t go perfectly, so now it’s time to discuss data augmentation to combat the biases.
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. With the combination of training on normal laps, recovery laps, and generalization laps, I discovered that it was not enough data to train my model to drive properly.  After running my newly trained model and predicting steering measurements in autonomous mode, my car consistently crashed into the lake on the sharp right turn after the bridge.
 
 The final step was to run the simulator to see how well the car was driving around track one.  There was one specific spot where the vehicle fell off the track on the first sharp right turn after the bridge.  To improve the driving behavior in this case, I decided to augment the data for the extreme positive steering angles.  At the end of the process, the vehicle was able to drive autonomously around the track without leaving the road.
 
@@ -70,12 +68,8 @@ To augment the dataset, I also flipped images and angles thinking that this woul
 
 ![alt text][image08] ![alt text][image09]
 
-Left Turn Original
 
-
-In addition, I added images above a certain angle threshold (-/+ 0.1) and randomly varied the brightness of the image thinking that this would help reinforce both left and right turns while teaching the model new brightness patterns.
-
-
+In addition, I added images above a certain angle threshold (-/+ 2.5 degrees) and randomly varied the brightness of the image thinking that this would help reinforce both left and right turns while teaching the model new brightness environments.
 
 
 ![alt text][image10]
@@ -93,63 +87,31 @@ Sharp Right Turn Shady
 
 
 
-Flipping Images And Steering Measurements
 
-A effective technique for helping with the left turn bias involves flipping images and taking the opposite sign of the steering measurement.
-
-
-
-### Model Architecture and Training Documentation
 
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
 
 To combat the overfitting, I modified the model so that ...
 
-Then I ... 
+I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. To combat the overfitting, I modified the model so that ...??????????????????
 
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+After the data collection and augmentation process, I had 38,000 number of data points. I then preprocessed this data by normalization with mean center.  I finally randomly shuffled the dataset and put 20% of the data into a validation set.  I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 as evidenced by the validation loss converging to 0.06, as seen below:
 
-At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
+```
+Epoch 1/5
+30338/30338 [==============================] - 70s - loss: 0.0207 - val_loss: 0.0618
+Epoch 2/5
+30338/30338 [==============================] - 69s - loss: 0.0157 - val_loss: 0.0604
+Epoch 3/5
+30338/30338 [==============================] - 69s - loss: 0.0148 - val_loss: 0.0650
+Epoch 4/5
+30338/30338 [==============================] - 73s - loss: 0.0136 - val_loss: 0.0660
+Epoch 5/5
+30338/30338 [==============================] - 73s - loss: 0.0130 - val_loss: 0.0621
+```
 
--2. Final Model Architecture
-
-The final model architecture (model.py lines 67-92) consisted of a CNN with the following layers and layer sizes ...
-
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
-
-![alt text][image1]
-
--3. Creation of the Training Set & Training Process
-
-To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
-
-![alt text][image2]
-
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
-
-![alt text][image3]
-![alt text][image4]
-![alt text][image5]
-
-Then I repeated this process on track two in order to get more data points.
-
-To augment the data set, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
-
-![alt text][image6]
-![alt text][image7]
-
-Etc ....
-
-After the collection process, I had X number of data points. I then preprocessed this data by ...
-
-
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary. 
-
-    
-
+I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
 
 
@@ -211,7 +173,7 @@ I trained the network by launching an AWS EC2 instance attached on a GPU.  For a
 
 The model had to learn how to handle sharp turns, varying road textures, and different borders that lined the edges of the road.
 
-<i>You can find a video of my car navigating the test track in autonomous mode [here](https://youtu.be/a6wvZnbKRT4)</i>
+<i>I posted a video recording of my autonomous car navigating the test track in autonomous mode [here](https://youtu.be/a6wvZnbKRT4)</i>
 
 
 ### References
