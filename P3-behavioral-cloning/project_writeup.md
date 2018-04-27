@@ -2,6 +2,10 @@
 
 ## Using Deep Learning to Clone Driving Behavior
 
+
+![alt text][image01]
+
+
 ### Goals
 * Use the simulator provided by Udacity to collect data of good driving behavior
 * Build a Convolutional Neural Network (CNN) in Keras with TensorFlow back-end that predicts steering angles from images
@@ -31,10 +35,6 @@ Right Camera
 My strategy for collecting training data focused on the following areas: normal laps, recovery laps, and generalization laps. Although image data was available from 3 different cameras, I decided to only use images recorded by the center camera.
 
 I first recorded the training data by carefully driving the car as close to the middle of the road as possible even when making turns.  To capture good driving behavior, I recorded 3 normal laps on track one using center lane driving.  This is the designated track to evaluate the model’s performance for an autonomous vehicle.  Here is an example image of center lane driving:
-
-
-![alt text][image01]
-
 
 I then recorded the vehicle recovering from the left side and right side of the road back to the center so that the vehicle would learn to return to the middle when it wanders off to the side.  This was also performed on track one.  It was very important to disable recording when I intentionally drove the car to either side of the road to setup the recovery training because I did not want to teach the network bad driving habits to drift off to the side.  So I only collected recovery data when the car was driving from the side of the road back toward the middle.  Each recovery training interval was very short, lasting about 2-3 seconds (~50 images).  I trained for approximately one lap alternating between sides to create a balanced and diverse dataset.  One lap was sufficient because it allowed the network to learn different road textures and borders for side recoveries.  These images show what a recovery looks like starting from the right side on the bridge: 
 
