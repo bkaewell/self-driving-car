@@ -72,10 +72,6 @@ To augment the dataset, I also flipped images and angles thinking that this woul
 
 Left Turn Original
 
-![alt text][image09]
-
-Flipped
-
 
 In addition, I added images above a certain angle threshold (-/+ 0.1) and randomly varied the brightness of the image thinking that this would help reinforce both left and right turns while teaching the model new brightness patterns.
 
