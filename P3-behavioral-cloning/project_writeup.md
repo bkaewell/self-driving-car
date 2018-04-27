@@ -112,7 +112,7 @@ Since this was a regression network, my loss function was Mean Squared Error to 
 
 I implemented a behavioral cloning network using Keras framework with Tensorflow back-end.
 
-<i>My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)</i>
+My model architecture was based on NVIDIA's end to end deep learning for self driving cars found [here](https://devblogs.nvidia.com/deep-learning-self-driving-cars/)
 
 My model consists of a CNN with strided convolutions in the first three convolutional layers with a 2×2 stride and a 5×5 kernel, and a non-strided convolution with a 3×3 kernel size in the final two convolutional layers.  It had depths between 24 and 64 (model.py lines 76-80)
 
@@ -166,7 +166,7 @@ I trained the network by launching an AWS EC2 instance attached on a GPU.
 
 This project was very challenging, interesting and rewarding. I never thought I would be cheering for an autonomous car to successfully drive around the track without leaving the road. 
 
-<i>I had a little fun and posted a video recording of my autonomous car navigating the test track in autonomous mode on [YouTube](https://youtu.be/a6wvZnbKRT4)</i>
+<i>I posted a video recording of my autonomous car navigating the test track on [YouTube](https://youtu.be/a6wvZnbKRT4)</i>
 
 
 ### References
