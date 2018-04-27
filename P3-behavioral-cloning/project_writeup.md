@@ -55,6 +55,7 @@ Overall, my final training dataset consisted of 16,430 samples.  Below is the di
 
 ![alt text][image05]
 
+
 As expected, zero degree steering was heavily over sampled due to the loop in the training track that had more straight sections than curve sections.  Aside from the spike in the middle of the distribution, I had a pretty decent distribution on both negative (left turns) and positive (right turns) steering angles.  However, right turns were still slightly under sampled compared to left turns.
 
 In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. With the combination of training on normal laps, recovery laps, and generalization laps, I discovered that it was not enough data to train my model to drive properly.  After running my newly trained model and predicting steering measurements in autonomous mode, my car consistently crashed into the lake on the sharp right turn after the bridge.
@@ -74,7 +75,7 @@ In addition, I added images above a certain angle threshold (-/+ 2.5 degrees) an
 
 ![alt text][image10]
 
-Sharp Right Turn Original
+Sharp Right Turn Original Image
 
 ![alt text][image11]
 
