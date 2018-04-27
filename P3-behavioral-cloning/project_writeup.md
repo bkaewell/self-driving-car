@@ -73,7 +73,7 @@ To augment the dataset, I flipped images and angles thinking that this would eli
 
 In addition, I augmented images above a certain angle threshold (+/- 2.5 degrees) and randomly varied the brightness of the new image thinking that this would help reinforce both left and right turns while teaching the model new lighting environments.  
 
-Lastly, I repeated the previous technique for the extreme positive steering angles that were above 5 degrees.  This was to help the model overcome the sharp right turn where the vehicle consistently fell off the track. Here is a visualization of the image augmentation with varying brightness:
+Lastly, I repeated the previous technique for the extreme positive steering angles that exceeded +5 degrees to further up sample right turns.  This was to help the model overcome the sharp right turn where the vehicle consistently fell off the track. Here is a visualization of the image augmentation with varying brightness:
 
 
 ![alt text][image10]

@@ -3,7 +3,27 @@ import cv2
 import numpy as np
 import random
 
-# Read driving log:
+# Helper function to randomize image brightness
+def modify_brightness(image):
+    # Convert to HLS
+    image_hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)
+    image_hls = np.array(image_hls, dtype = np.float64)
+
+    # Generate value between 0.5 and 1.5
+    value = np.random.uniform() + 0.5
+
+    # Scale pixel values for channel 1 (lightness)
+    image_hls[:,:,1] = image_hls[:,:,1] * value
+
+    # Clip all values above 255 to 255
+    image_hls[:,:,1][image_hls[:,:,1] > 255]= 255
+    image_hls = np.array(image_hls, dtype = np.uint8)
+    image_rgb = cv2.cvtColor(image_hls, cv2.COLOR_HLS2RGB)
+
+    return image_rgb
+
+
+# Read csv file:
 lines = []
 with open('driving_data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
@@ -34,26 +54,21 @@ for image,measurement in zip(images, measurements):
     aug_images.append(cv2.flip(image,1))
     aug_measurements.append(measurement*-1.0)
 
-
-    # Duplicate some steering angles and randomize image brightness  
-    # Steering angles are normalized [-1, 1] by default from the recording of training data
-    # The range [-1, 1] corresponds to steering angle range of -/+ 25 degrees
+    # Duplicate steering angles greater than 2.5 degrees 
+    # And randomize image brightness  
+    # The range [-1, 1] corresponds to steering angle range of +/- 25 degrees
     if (abs(measurement) > 0.1):
-        hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-        value = random.randint(0,255)
-        hsv[:,:,2] += value
-        aug_images.append(hsv)
+        image_out = modify_brightness(image)
+        aug_images.append(image_out)
         aug_measurements.append(measurement)
-
-    # Duplicate right turn samples (larger positive steering angles))
+       
+    # Duplicate just right turn data exceeding 5 degrees (positive steering angles)
     # And randomize image brightness:
     if (measurement > 0.2):
-        hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-        value = random.randint(0,255)
-        hsv[:,:,2] += value
-        aug_images.append(hsv)
+        image_out = modify_brightness(image)
+        aug_images.append(image_out)
         aug_measurements.append(measurement)
-
+        
 
 X_train = np.array(aug_images)
 y_train = np.array(aug_measurements)
@@ -89,7 +104,6 @@ model.add(Dense(10))
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
-model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=5)
+model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=2)
 model.save('model_nvda.h5')
 model.summary()
-
