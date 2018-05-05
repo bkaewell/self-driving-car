@@ -91,9 +91,9 @@ Then I took a histogram along all the columns of the lower half of the image to 
 
 I skip the previous sliding window step once I establish the line locations since the base of the lane lines are consistent from frame to frame (see functions `update_line_class()` and `find_lane_boundary()`). I fit my new lane lines (smoothed and averaged over the previous 5 polynomial fits) with a 2nd order polynomial kinda like this: 
 
-![alt text][image04]
-
 ![alt text][image05]
+
+![alt text][image06]
 
 
 I calculated the radius of curvature of the lane and the position of the vehicle with respect to center in the function `calc_lane_curvature()`.      
