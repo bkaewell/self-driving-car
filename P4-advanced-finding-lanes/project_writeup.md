@@ -59,77 +59,55 @@ test image using the OpenCV function `cv2.undistort()` and obtained this result:
 The first step in analyzing images is to undo the distortion from the camera lens. This is necessary to extract
 correct and useful information from images of the road such as lane curvature, traffic signs and other objects.
 After calibrating and correcting for distortion on the raw camera images, I can accurately determine where my
-self driving car is in the real world. Here is an example of undistorting a camera image:
+self driving car is in the world. Here is an example of undistorting a camera image:
 
 ![alt text][image02]
 
-There is a subtle difference between the two images.  On the far right edge, the original image shows the license plate of the white car, but it is not visible in the undistorted (corrected) image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true positions to ensure safe driving.
+There is a subtle difference between the two images.  The original image shows the license plate of the white car, but it is not visible in the undistorted image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true positions to ensure safe driving.
 
 
+I used a combination of color and gradient thresholds to generate a thresholded binary image.  The code for this step is contained in the fourth code cell of the IPython notebook located in "pipeline.ipynb" in the function called “thresholding”. Here's an example of my output for this step:
+
+![alt text][image03]
 
 
-
-
-
-
-
-
-
-
-
-The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
-
-I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.  
-
-I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
-
-![alt text][image1]
-
-
-
-
-
-
-
-
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
-
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
-
-![alt text][image3]
-
-#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
-
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warp()`, which appears in the fifth code cell of the IPython notebook located in "pipeline.ipynb".  The `warp()` function takes as inputs a thresholded binary image (`image`), as well as source (`src`) and destination (`dst`) points.  I chose to hardcode the source and destination points in the following manner:
 
 ```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+
+    #Source points - defined area of lane line edges
+    src = np.float32([[690, 450], 
+                      [1110, image.shape[0]], 
+                      [175, image.shape[0]], 
+                      [595, 450]])
+    
+    #Destination points to transform from source points
+    offset = 300 # offset for dst points
+    dst = np.float32([[image.shape[1]-offset, 0], 
+                      [image.shape[1]-offset, image.shape[0]],
+                      [offset, image.shape[0]], 
+                      [offset, 0]]) 
 ```
 
 This resulted in the following source and destination points:
 
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| Source     | Destination  | 
+|:----------:|:------------:| 
+| 690, 450   | 980, 0       | 
+| 1110, 720  | 980, 720     |
+| 175, 720   | 300, 720     |
+| 595, 450   | 300, 0       |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image that had straight lanes and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![alt text][image04]
+
+
+
+
+
+
+
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
