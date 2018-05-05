@@ -99,9 +99,9 @@ I skip the previous sliding window step once I establish the line locations sinc
 I calculated the radius of curvature of the lane and the position of the vehicle with respect to center in the function `calc_lane_curvature()`.      
 
 
-Here is a visualization of my final result of the pipeline, which illustrates the superimposed lane guides (in green) for the autonomous vehicle on a test image:
+Here is a visualization of my final result of the pipeline, which illustrates the superimposed lane guides (in green) on a test image for the autonomous vehicle:
 
-![alt text][image06]
+![alt text][image07]
 
 
 ---
