@@ -36,17 +36,6 @@ Goals:
 [video01]: ./output_video.mp4 "Video"
 
 
-![alt text][image01]
-![alt text][image02]
-![alt text][image03]
-![alt text][image04]
-![alt text][image05]
-![alt text][image06]
-![alt text][image07]
-
-![alt text][video01]
-
-
 ### Camera Calibration
 
 The code for this step is contained in the third code cell of the IPython notebook located in "pipeline.ipynb" in the function called “camera_calibration”. 
@@ -63,6 +52,8 @@ distortion coefficients using the OpenCV function `cv2.calibrateCamera()`. I app
 test image using the OpenCV function `cv2.undistort()` and obtained this result:
 
 ![alt text][image01]
+
+There is a subtle difference between the two images.  On the far right edge, the original image shows the license plate of the white car, but it is not visible in the undistorted (corrected) image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true positions to ensure safe driving.
 
 
 ### Pipeline (single images)
