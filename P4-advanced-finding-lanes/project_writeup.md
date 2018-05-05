@@ -53,8 +53,6 @@ test image using the OpenCV function `cv2.undistort()` and obtained this result:
 
 ![alt text][image01]
 
-There is a subtle difference between the two images.  On the far right edge, the original image shows the license plate of the white car, but it is not visible in the undistorted (corrected) image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true positions to ensure safe driving.
-
 
 ### Pipeline (single images)
 
@@ -65,7 +63,7 @@ self driving car is in the real world. Here is an example of undistorting a came
 
 ![alt text][image02]
 
-
+There is a subtle difference between the two images.  On the far right edge, the original image shows the license plate of the white car, but it is not visible in the undistorted (corrected) image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true positions to ensure safe driving.
 
 
 
