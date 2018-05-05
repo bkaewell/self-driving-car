@@ -66,7 +66,7 @@ self driving car is in the world. Here is an example of undistorting a camera im
 There is a subtle difference between the two images.  The original image shows the license plate of the white car, but it is not visible in the undistorted image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true positions to ensure safe driving.
 
 
-I used a combination of color and gradient thresholds to generate a thresholded binary image.  The code for this step is contained in the fourth code cell of the IPython notebook located in "pipeline.ipynb" in the function called “thresholding”. Here's an example of my output for this step:
+I used a combination of color ("R" channel from RGB and "S" channel from HLS) and gradient thresholds to generate a thresholded binary image.  During one of the lab experiments, I discovered that the R channel works best for white lines and the S channel works best for yellow lines.  Since white and yellow lines are standard line markings for roadways, I wanted to build a robust pipeline to perform the thresholding under all conditions so I included both R and S channel thresholding techniques.  One improvement is to divide the image in half and use R and S channels for the left side since the left lines can be either white or yellow.  And the right side is primarily just white lines. The code for this step is contained in the fourth code cell of the IPython notebook located in "pipeline.ipynb" in the function called “thresholding”.   Here's an example of my output for this step:
 
 ![alt text][image03]
 
@@ -125,13 +125,18 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 ![alt text][image6]
 
+
+
+
+
+
 ---
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+Here's a [link to my video result](https://github.com/bkaewell/self-driving-car/blob/master/P4-advanced-finding-lanes/output_video.mp4)
 
-Here's a [link to my video result](./project_video.mp4)
+The lane finding performs very well even though there are some wobbly lines when the car bounces on a random bump, but there are no catastrophic failures that would cause the car to drive off the road!
 
 ---
 
