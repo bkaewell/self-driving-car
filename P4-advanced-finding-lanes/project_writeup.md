@@ -9,7 +9,7 @@ Goals:
 * Compute the camera calibration matrix and distortion coefficients given a set of chessboard images
 * Apply a distortion correction to raw images
 * Use color transforms, gradients, etc., to create a thresholded binary image
-* Apply a perspective transform to rectify binary image ("birds-eye view")
+* Apply a perspective transform to rectify thresholded binary image ("birds-eye view")
 * Detect lane pixels and fit to find the lane boundary
 * Determine the curvature of the lane and vehicle position with respect to center
 * Warp the detected lane boundaries back onto the original image
@@ -52,7 +52,7 @@ self driving car is in the world. Here is an example of undistorting a camera te
 
 There is a subtle difference between the two images.  The original image shows the license plate of the white car, but it is not visible in the undistorted image.  This effect is due to the curvature of the camera lens and it is very important for autonomous vehicles to accurately identify objects and their true shapes, sizes, and positions to ensure safe driving.
 
-I used a combination of color ("R" channel from RGB and "S" channel from HLS) and gradient thresholds to generate a thresholded binary image.  During one of the lab experiments, I discovered that the R channel works best for white lines and the S channel works best for yellow lines.  Since white and yellow lines are standard line markings for roadways, I wanted to build a robust pipeline to perform the thresholding under all conditions so I included both R and S channel thresholding techniques.  One improvement is to divide the image in half and use R and S channels for the left side since the left lines can be either white or yellow.  And the right side is primarily just white lines. The code for this step is contained in the fourth code cell of the notebook in the function called `thresholding()`.   Here's an example of my output for this step:
+I used a combination of color ("R" channel from RGB and "S" channel from HLS) and gradient (Sobel X) thresholds to generate a thresholded binary image.  During one of the lab experiments, I discovered that the R channel works best for white lines and the S channel works best for yellow lines.  Since white and yellow lines are standard line markings for roadways, I wanted to build a robust pipeline to perform the thresholding under all conditions so I included both R and S channel thresholding techniques.  One improvement is to divide the image in half and use R and S channels for the left side since the left lines can be either white or yellow.  The right side is primarily white lines. The code for this step is contained in the fourth code cell of the notebook in the function called `thresholding()`.   Here's an example of my output for this step:
 
 ![alt text][image03]
 
@@ -91,7 +91,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 Then I took a histogram along all the columns of the lower half of the image to identify the strongest two peaks, presumably the left and right lane lines.  These peaks are good indicators of the x-position of the base of the lane lines. I used that as a starting point for where to search for the line pixels. From that point, I used a sliding window, placed around the line centers, to find and follow the lines up to the top of the frame.  Once I have all of the "hot pixels" and their x-y positions, then I fit a 2nd order polynomial to them. The code for this step is contained in the sixth code cell of the notebook in the function called `detect_lane_pixels()`.
 
-I skip the previous sliding window step once I establish the line locations since the base of the lane lines are consistent from frame to frame (see functions `update_line_class()` and `find_lane_boundary()`). I fit my new lane lines (smoothed and averaged over the previous 5 polynomial fits) with a 2nd order polynomial kinda like this: 
+I skip the previous sliding window step after I establish the line locations since the base of the lane lines are consistent from frame to frame (see functions `update_line_class()` and `find_lane_boundary()`). I fit my new lane lines (smoothed and averaged over the previous 5 polynomial fits) with a 2nd order polynomial kinda like this: 
 
 ![alt text][image05]
 
@@ -118,4 +118,4 @@ The lane finding performs very well even though there are some wobbly lines when
 
 ### Discussion
 
-My approach was to start with the most difficult test image, which is the test image I used for this writeup above.  The combination of shadows, cars, curves, and bridge texture was adequate for determing final threshold parameters. I used trial and error to tune the threshold parameters.  One potential improvement would be to incorporate an adaptive threshold.  However, as an alternative to the adaptative threshold, I performed an OpenCV median blur on all images prior to thresholding.  This helped reduce the wobbly lines on the left lane line when the car approached the bridge and made a sharp right turn. I also experimented with moving averages and different history buffer depths, but just a regular mean-average did pretty well.  The pipeline could be improved with more error handling when there are no "hot pixels" and the line fitting bookkeeping variables are empty.
+My approach was to start with the most difficult test image, which is the image I used for this writeup above.  The combination of shadows, cars, curves, and bridge texture was adequate for determing final threshold parameters. I used trial and error to tune the threshold parameters.  One potential improvement would be to incorporate an adaptive threshold.  However, as an alternative to the adaptative threshold, I performed an OpenCV median blur on all images prior to thresholding.  This helped reduce the wobbly lines on the left lane line when the car approached the bridge and made a sharp right turn. I also experimented with moving averages and different history buffer depths, but just a regular mean-average did pretty well.  The pipeline could be improved with more error handling when there are no "hot pixels" and the line fitting class variables are empty for more challenging environments.
