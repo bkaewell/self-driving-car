@@ -25,6 +25,7 @@ Goals:
 [image07]: ./output_images/color_lane_area.jpg "Output"
 [video01]: ./output_video.mp4 "Video"
 
+---
 
 ### Camera Calibration
 
@@ -36,6 +37,7 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 
 ![alt text][image01]
 
+---
 
 ### Pipeline (single images)
 
@@ -116,10 +118,4 @@ The lane finding performs very well even though there are some wobbly lines when
 
 ### Discussion
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
-
-
-
-
+My approach was to start with the most difficult test image, which is the test image I used for this writeup above.  The combination of shadows, cars, curves, and bridge texture was adequate for determing final threshold parameters. I used trial and error to tune the threshold parameters.  One potential improvement would be to incorporate an adaptive threshold.  However, as an alternative to the adaptative threshold, I performed an OpenCV median blur on all images prior to thresholding.  This helped reduce the wobbly lines on the left lane line when the car approached the bridge and made a sharp right turn. I also experimented with moving averages and different history buffer depths, but just a regular mean-average did pretty well.  The pipeline could be improved with more error handling when there are no "hot pixels" and the line fitting bookkeeping variables are empty.
