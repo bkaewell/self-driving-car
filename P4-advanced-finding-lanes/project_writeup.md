@@ -98,7 +98,7 @@ I skip the previous sliding window step after I establish the line locations sin
 ![alt text][image06]
 
 
-I calculated the radius of curvature of the lane and the position of the vehicle with respect to center in the function `calc_lane_curvature()`.      
+After performing a perspective transform to obtain the bird's eye image, I calculated the radius of curvature of the lane and the position of the vehicle with respect to center in the function `calc_lane_curvature()`.      
 
 
 Here is a visualization of my final result of the pipeline, which illustrates the superimposed lane guides (in green) on a test image for the autonomous vehicle:
