@@ -31,7 +31,9 @@ The code for this step is contained in the fourth code cell of the IPython noteb
 
 I started by reading in all the [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) images from a labeled training dataset.  There are 8,792 vehicle images and 8,968 non-vehicle images.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/).  Here is an example of one of each of the vehicle and non-vehicle classes:
 
+
 ![alt text][image01]
+
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
@@ -52,7 +54,7 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 1. Describe how (and identify where in your code) you implemented a sliding window search. How did you decide what scales to search and how much to overlap windows?
 
-To bound the search window region, I decided to divide the 1200 x 760 image into two parts – sky and ground.  Since cars can’t fly yet, I only searched the lower half of the image, which begins at the 400 pixel mark from the top.  I decided to search window positions at varying scales ranging from 1 to 3 with 0.5 step intervals and came up with this:
+To bound the search window region, I decided to divide the 1200 x 760 image in half along the horizontal plane.  In other words, the division separates the sky and ground.  Since cars can’t fly yet, I only processed the lower half of the image, which begins at the 400 pixel mark from the top.  I decided to search window positions at varying scales ranging from 1 to 3 with 0.5 step intervals and came up with this:
 
 
 <figure> scale 1.0
