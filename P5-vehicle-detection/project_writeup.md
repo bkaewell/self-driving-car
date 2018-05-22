@@ -1,6 +1,6 @@
 ## Vehicle Detection & Tracking
 
-### Using Computer Vision to Classify, Detect, and Track Vehicles on Roadways
+### Using Computer Vision and Machine Learning to Detect and Track Vehicles on Roadways
 
 ---
 
@@ -14,47 +14,39 @@ Goals:
  * Estimate a bounding box for vehicles detected
 
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
-[video1]: ./project_video.mp4
+[image01]: ./output_images/car_notcar_example.jpg "car/not car example"
+[image02]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image03]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image04]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image05]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image06]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 
-
-[image01]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 
 ---
 
 ### Histogram of Oriented Gradients (HOG)
 
-1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+The code for this step is contained in the fourth code cell of the IPython notebook called `pipeline.ipynb`.
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
-
-I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
-
-
-![alt text][image1]
-
-
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
-
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+I started by reading in all the [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) images from a labeled training dataset.  There are 8,792 vehicle images and 8,968 non-vehicle images.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/).  Here is an example of one of each of the vehicle and non-vehicle classes:
 
 
 ![alt text][image01]
 
 
-2. Explain how you settled on your final choice of HOG parameters.
+I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
-I tried various combinations of parameters and...
+Here is an example using the `YCrCb` color space for channel 0 and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
-3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
-I trained a linear SVM using...
+![alt text][image02]
+
+
+I experimented with various combinations of HOG parameters and obtained the final parameter values by examining the accuracy of my classifier.  This resulted in a HOG feature vector length of 5,292.
+
+I trained a linear Support Vector Machine (SVM) classifier using a combination of color and gradient features extracted from the training dataset.  These features were concatenated and flattened into a 1-dimensional array then preprocessed by normalization with mean-center.  In addition, a labels vector was defined to support the binary classification model with “1” representing all vehicles and “0” representing all non-vehicles.  In order to gauge how well the classifier was working, I shuffled and split my vehicle and non-vehicle data into a training and testing set with 75% used for training and the remaining 25% saved for testing.  After experimenting with  color spaces and channels, I found that all channels of the YCrCb color space produced the best test accuracy score, which yielded 98.6% accuracy.
+
 
 ---
 
