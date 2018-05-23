@@ -26,13 +26,13 @@ Goals:
 
 ### Histogram of Oriented Gradients (HOG)
 
-I started by reading in all the [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) images from a labeled training dataset.  There are 8,792 vehicle images and 8,968 non-vehicle images.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/).  Here is an example of one of each of the vehicle and non-vehicle classes:
+I started by reading in all the [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) images from a labeled training dataset stored on Amazon Web Services.  There are 8,792 vehicle images and 8,968 non-vehicle images.  These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html) and the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/).  Here is an example of one of each of the vehicle and non-vehicle classes:
 
 
 ![alt text][image01]
 
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.  The code for this step is contained in the fourth and fifth code cells of the IPython notebook called `pipeline.ipynb`.
+I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.  The source code for this step is contained in the fourth and sixth code cells of the IPython Jupyter notebook called `pipeline.ipynb`, which can be found [here](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/pipeline.ipynb).
 
 Here is an example using the `YCrCb` color space for channel 0 and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
@@ -50,7 +50,11 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 1. Describe how (and identify where in your code) you implemented a sliding window search. How did you decide what scales to search and how much to overlap windows?
 
-To bound the search window region, I decided to divide the 1200 x 760 image in half along the horizontal plane.  In other words, the division separates the sky and ground.  Since self driving cars can’t fly (yet?), I only processed the lower half of the image, starting at the 400 pixel mark.  I decided to search window positions at varying scales ranging from 1 to 3 in 0.5 step intervals and came up with this:
+The source code for this step is contained in the tenth code cell of the notebook located in "pipeline.ipynb" in the function called `find_cars()`.
+
+(...get help from lectures...)
+
+To bound the search window region, I decided to divide the 1200 x 760 image in half along the horizontal plane separating the sky and ground.  Since self driving cars are not cruising in the skies now, I only processed the lower half of the image, starting at the 400 pixel mark.  I decided to search window positions at different scales ranging from 1 to 2.5 in 0.5 steps and came up with this:
 
 
 ![alt text][image03]
@@ -61,7 +65,7 @@ To bound the search window region, I decided to divide the 1200 x 760 image in h
 
 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on two scales using YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image4]
 
