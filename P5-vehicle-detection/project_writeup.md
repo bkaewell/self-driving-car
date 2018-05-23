@@ -16,8 +16,8 @@ Goals:
 [//]: # (Image References)
 [image01]: ./output_images/car_notcar_example.jpg "car/not car example"
 [image02]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
-[image03]: ./output_images/search_windows_scale_1.0.jpg "search window example"
-[image04]: ./output_images/search_windows_scale_2.5.jpg "search window example"
+[image03]: ./output_images/search_window_scale1.0.jpg "search window example"
+[image04]: ./output_images/search_window_scale2.5.jpg "search window example"
 [image05]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image06]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
