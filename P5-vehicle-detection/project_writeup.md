@@ -16,8 +16,8 @@ Goals:
 [//]: # (Image References)
 [image01]: ./output_images/car_notcar_example.jpg "car/not car example"
 [image02]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
-[image03]: ./output_images/search_windows_scale1.jpg "search window example"
-[image04]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image03]: ./output_images/search_windows_scale_1.0.jpg "search window example"
+[image04]: ./output_images/search_windows_scale_2.5.jpg "search window example"
 [image05]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image06]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
@@ -50,16 +50,14 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 1. Describe how (and identify where in your code) you implemented a sliding window search. How did you decide what scales to search and how much to overlap windows?
 
-To bound the search window region, I decided to divide the 1200 x 760 image in half along the horizontal plane.  In other words, the division separates the sky and ground.  Since cars can’t fly yet, I only processed the lower half of the image, which begins at the 400 pixel mark from the top.  I decided to search window positions at varying scales ranging from 1 to 3 with 0.5 step intervals and came up with this:
+To bound the search window region, I decided to divide the 1200 x 760 image in half along the horizontal plane.  In other words, the division separates the sky and ground.  Since self driving cars can’t fly (yet?), I only processed the lower half of the image, starting at the 400 pixel mark.  I decided to search window positions at varying scales ranging from 1 to 3 in 0.5 step intervals and came up with this:
 
 
 ![alt text][image03]
 
- 
-<figure> scale 3.0
 
+![alt text][image04]
 
-![alt text][image3]
 
 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
