@@ -6,7 +6,7 @@
 
 Goals:
 
- * Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a Linear SVM classifier
+ * Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a Linear SVM classifier using sci-kit learn: machine learning in Python
  * Apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector
  * Normalize features and randomize a selection for training and testing
  * Implement a sliding-window technique and use your trained classifier to search for vehicles in images
@@ -23,6 +23,7 @@ Goals:
 
 [image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image08]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image09]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 
 ---
 
