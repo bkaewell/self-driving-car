@@ -19,10 +19,10 @@ Goals:
 [image03]: ./output_images/search_window_scale1.0.jpg "search window example"
 [image04]: ./output_images/search_window_scale3.0.jpg "search window example"
 [image05]: ./output_images/sliding_window_examples.jpg "sliding window example"
+[image06]: ./output_images/score_distribution_model_ref.png "Score Distribution Example"
+
 [image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image08]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
-
-[image09]: ./output_images/score_distribution_model_ref.png "Score Distribution Example"
 
 ---
 
@@ -50,7 +50,9 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 ### Sliding Window Search
 
-The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath of windows:
+The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is the workhorse of my processing pipeline.  It is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image (e.g. smaller near the horizon, larger in the center).  
+
+To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since there is no altitude dimension to self-driving cars today, I only processed the lower half of the image, starting at the 400 pixel mark.  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath of windows:
 
 
 ![alt text][image03]
@@ -62,15 +64,14 @@ As the scale factor increases, the search area of the windows increases, but the
 ![alt text][image04]
 
 
-To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since self driving cars are not cruising in the skies now, I only processed the lower half of the image, starting at the 400 pixel mark.  I decided to search window positions at different scales ranging from 1 to 2.5 in 0.5 steps and came up with this:
-
-
-
-2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
-
-Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale overlapping 50% in X and 75% in Y.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here are some example images of the full sliding window processing:
+Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale and overlapping windows 50% in X and 75% in Y directions.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here are some example images of the full sliding window processing:
 
 ![alt text][image05]
+
+
+I optimized the performance of my classifier by adding a confidence score threshold to the predictions...
+
+![alt text][image06]
 
 ---
 
