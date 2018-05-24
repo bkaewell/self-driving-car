@@ -43,19 +43,19 @@ Here is an example using the `YCrCb` color space for channel 0 and HOG parameter
 
 I experimented with various combinations of HOG parameters and obtained the final parameter values by examining the accuracy of my classifier.  This resulted in a HOG feature vector length of 5,292.
 
-I trained a linear Support Vector Machine (SVM) classifier using a combination of color and gradient features extracted from the training dataset.  These features were concatenated and flattened into a 1-dimensional array then preprocessed by normalization with mean-center.  In addition, a labels vector was defined to support the binary classification model with “1” representing the vehicle class and “0” representing all non-vehicles.  In order to gauge how well the classifier was working, I shuffled and split my vehicle and non-vehicle data into a training and testing set with the `test_size` parameter set to 0.25.  After experimenting with color spaces and channels, I found that all channels of the YCrCb color space produced an excellent test accuracy score of 98.6%.
+I trained a linear Support Vector Machine (SVM) classifier using a combination of color and gradient features extracted from the training dataset.  These features were concatenated and flattened into a 1-dimensional array then preprocessed by normalization with mean-center.  In addition, a labels vector was defined to support the binary classification model with “1” representing the vehicle class and “0” representing all non-vehicles.  In order to gauge how well the classifier was working, I shuffled and split my vehicle and non-vehicle data into a training and testing set with `test_size` set to 0.25.  After experimenting with color spaces and channels, I found that all channels of the YCrCb color space produced an excellent test accuracy score of 98.6%.
 
 ---
 
 ### Sliding Window Search
 
-The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function extracts features using HOG sub-sampling and make predictions.  It only has to extract hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then can be sub-sampled to get all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size. The scale factor can be set on different regions of the image based on distance (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows is shown below with two different sub-regions in blue and green:
+The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image based on distance (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath:
 
 
 ![alt text][image03]
 
 
-Here is an example of how an increase in scale factor also increases the search area of the windows, but decreases the total number of windows:
+As the scale factor increases, the search area of the windows increases, but the total number of windows decreases.  Here is a visualization of large overlapping windows:
 
 
 ![alt text][image04]
