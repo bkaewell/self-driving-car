@@ -69,7 +69,7 @@ Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per s
 ![alt text][image05]
 
 
-I optimized the performance of my classifier by adding a confidence score threshold to the predictions...
+I optimized the performance of my classifier by adding a confidence score threshold to minimize the false positive detections from the classifier....
 
 ![alt text][image06]
 
@@ -78,31 +78,36 @@ I optimized the performance of my classifier by adding a confidence score thresh
 ### Video Implementation
 
 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-Here's a [link to my video result](./project_video.mp4)
+
+Here's a [link to my video result](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/output_video.mp4)
 
 
 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.
+
+
+
+
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
 Here are six frames and their corresponding heatmaps:
 
 
-![alt text][image5]
+![alt text][image07]
 
 
 Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
 
 
-![alt text][image6]
+![alt text][image08]
 
 
 Here the resulting bounding boxes are drawn onto the last frame in the series:
 
 
-![alt text][image7]
+![alt text][image09]
 
 
 ---
@@ -112,6 +117,8 @@ Here the resulting bounding boxes are drawn onto the last frame in the series:
 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
+
+-i noticed i had a consistent vehicle detection on the far right side of the frame for a 2.5x scale factor for the duration of the video.   
 
 -i noticed that i wasn't picking up any of the smaller cars on the road with my current scale factors.  a potential area of improvement is to reduce the window size by setting the scale factor below 1 and experiment with that.
 
