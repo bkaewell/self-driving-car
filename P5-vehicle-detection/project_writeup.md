@@ -23,6 +23,8 @@ Goals:
 [image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image08]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 
+[image09]: ./output_images/score_distribution_model_ref.png "Score Distribution Example"
+
 ---
 
 ### Histogram of Oriented Gradients (HOG)
@@ -49,7 +51,7 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 ### Sliding Window Search
 
-The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image based on distance (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath:
+The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image based on distance (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath of windows:
 
 
 ![alt text][image03]
@@ -61,12 +63,12 @@ As the scale factor increases, the search area of the windows increases, but the
 ![alt text][image04]
 
 
+To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since self driving cars are not cruising in the skies now, I only processed the lower half of the image, starting at the 400 pixel mark.  I decided to search window positions at different scales ranging from 1 to 2.5 in 0.5 steps and came up with this:
 
 
 
+![alt text][image09]
 
-
-To bound the search window region, I decided to divide the 1200 x 760 image in half along the horizontal plane separating the sky and ground.  Since self driving cars are not cruising in the skies now, I only processed the lower half of the image, starting at the 400 pixel mark.  I decided to search window positions at different scales ranging from 1 to 2.5 in 0.5 steps and came up with this:
 
 
 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
