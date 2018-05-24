@@ -17,9 +17,8 @@ Goals:
 [image01]: ./output_images/car_notcar_example.jpg "car/not car example"
 [image02]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image03]: ./output_images/search_window_scale1.0.jpg "search window example"
-[image04]: ./output_images/search_window_scale2.5.jpg "search window example"
-[image05]: ./output_images/search_window_scale3.0.jpg "search window example"
-[image06]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image04]: ./output_images/search_window_scale3.0.jpg "search window example"
+[image05]: ./output_images/sliding_window_examples.jpg "sliding window example"
 [image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 [image08]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
 
@@ -51,7 +50,7 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 ### Sliding Window Search
 
-The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image based on distance (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath of windows:
+The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image (e.g. smaller near the horizon, larger in the center).  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath of windows:
 
 
 ![alt text][image03]
@@ -67,15 +66,11 @@ To bound the search window region, I decided to divide the 1280 x 720 image in h
 
 
 
-![alt text][image09]
-
-
-
 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale overlapping 50% in X and 75% in Y.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here are some example images of the full sliding window processing:
 
-![alt text][image4]
+![alt text][image05]
 
 ---
 
@@ -117,5 +112,5 @@ Here the resulting bounding boxes are drawn onto the last frame in the series:
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
 
-
+-i noticed that i wasn't picking up any of the smaller cars on the road with my current scale factors.  a potential area of improvement is to reduce the window size by setting the scale factor below 1 and experiment with that.
 
