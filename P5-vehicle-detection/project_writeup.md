@@ -78,7 +78,7 @@ I improved the reliability of my classifier by selecting a classification thresh
 
 ### Video Implementation
 
-Here's a [link to my video output](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/output_video.mp4)
+Here's a [link to my video output.](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/output_video.mp4)
 
 I recorded the positions of positive detections in each frame of the video in a detection history buffer with max depth of 50 frames.  From all the positive detections in the detection history buffer, I combined them to create a single heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  The source code is contained in the 22nd code cell of my notebook in the function `process_image()`.
 
