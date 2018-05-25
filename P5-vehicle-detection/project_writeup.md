@@ -48,9 +48,9 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 ### Sliding Window Search
 
-The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is the workhorse of my processing pipeline.  It is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image (e.g. smaller near the horizon, larger in the center).  
+The sliding window search is contained in the 8th code cell of my notebook in the function called `find_cars()`.  This single function is the workhorse of my processing pipeline.  It is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image (e.g. smaller near the horizon, larger in the center).  
 
-To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since there is no altitude dimension to self-driving cars today, I only processed the lower half of the image, starting at the 400 pixel mark.  A visualization of small overlapping windows near the horizon is shown below with a blue and green swath of windows:
+To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since there is no altitude dimension to self-driving cars today, I only processed the lower half of the image at ground level, starting at the 400 pixel mark.  A visualization of small overlapping windows near the horizon is shown below with a blue and green swath of windows:
 
 
 ![alt text][image03]
@@ -62,12 +62,13 @@ As the scale factor increases, the search area of the windows increases, but the
 ![alt text][image04]
 
 
-Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale and overlapping windows 50% in X and 75% in Y directions for expanded coverage.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here are some example images of the full sliding window processing:
+Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale and overlapping windows 50% in X and 75% in Y directions for a total of 374 windows.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here is an example image of the full sliding window processing:
+
 
 ![alt text][image05]
 
 
-I improved the reliability of my classifier by selecting a classification threshold using the `decision_function()` from scikit-learn SVM and comparing prediction scores against it.  Any observations with scores higher than the threshold are then predicted as the positive class (vehicles) and scores lower than the threshold are predicted as the negative class (non-vehicles).  After fine-tuning the threshold value (`classification_thresh=1`), the model predicted fewer false positives and obtained more reliable car detections (see bottom of `find_cars()` function).  The figure below from the [Amazon Machine Learning Developer’s Guide]( https://docs.aws.amazon.com/machine-learning/latest/dg/binary-classification.html) illustrates a threshold cut off line on a sample score distribution for a binary classification model.
+I improved the reliability of my classifier by selecting a classification threshold using the `decision_function()` from scikit-learn SVM and comparing prediction scores against it.  Any observations with scores higher than the threshold are then predicted as the positive class (vehicles) and scores lower than the threshold are predicted as the negative class (non-vehicles).  After fine-tuning the threshold value (`classification_thresh=1.2`), the model predicted fewer false positives and obtained more reliable car detections.  The figure below from the [Amazon Machine Learning Developer’s Guide]( https://docs.aws.amazon.com/machine-learning/latest/dg/binary-classification.html) helps visualize the threshold cut off line on a sample score distribution for a binary classification model.
 
 
 ![alt text][image06]
@@ -79,39 +80,20 @@ I improved the reliability of my classifier by selecting a classification thresh
 
 Here's a [link to my video output](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/output_video.mp4)
 
+I recorded the positions of positive detections in each frame of the video in a detection history buffer with max depth of 50 frames.  From all the positive detections in the detection history buffer, I combined them to create a single heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  The source code is contained in the 22nd code cell of my notebook in the function `process_image()`.
 
-2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
-
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap with a history depth of 50 most recent rectangles and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  The source code is contained in the Nth code cell of my notebook located in "pipeline.ipynb" in the function called `process_image()`.
-
-
-
-
-
-Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
-
-Here are six frames and their corresponding heatmaps:
+Here's an example sequence showing the heatmap from a video frame, the result of `scipy.ndimage.measurements.label()` and the bounding boxes drawn on top of the video frame:
 
 
 ![alt text][image07]
-
-
-Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
-
-
-![alt text][image08]
-
-
-Here the resulting bounding boxes are drawn onto the last frame in the series:
-
-
-![alt text][image09]
 
 
 ---
 
 ### Discussion
 
-I decided to go with an application where I wanted my machine learning model to be extremely sure about the positive predictions actually being positive (high precision) and be able to afford to misclassify some positive examples as negative (moderate recall).  This approach worked out very well because the model produced no false positives and detected and tracked the true positives in a steady state throughout the entire video.  I encountered several problems but one noteworthy problem was I had a steady false positive at a fixed position of each frame on the far right side for a 2.5x scale factor.  This was a concern because the frame contained only the road, but there may have been a glare from the windshield causing the reoccurring false positive.  As a work-around, I just removed all 2.5x scale windows from my pipeline.  To further improve my pipeline, I would derive an optimal grid pattern for the sliding window search to detect cars on the horizon.  I would use a scale factor less than 1.  And if adding hardware is an option, I would use data fusion with a radar sensor to significantly improve performance in low light or poor visibility weather conditions.  I look forward to running my processing pipeline on more challenging videos to see how well it performs in different environments!
+I decided to go with an application where I wanted my machine learning model to be extremely sure about the positive predictions actually being positive (high precision) and be able to afford to misclassify some positive examples as negative (moderate recall).  This approach worked out very well because the model produced no false positives and detected/tracked the true positives in a steady state throughout the entire video.  I encountered several problems but one interesting problem was I had a steady false positive at a fixed position of each frame on the far right side for a 2.5x scale factor window.  This was a concern because the frame contained only the road, but there may have been a glare from the windshield causing the reoccurring false positive.  As a work-around, I just removed all 2.5x scale windows from my pipeline and replaced it with the 3x scale factor windows.
+
+To further improve my pipeline, I would derive an optimal grid pattern for the sliding window search to detect cars on the horizon.  I would use a scale factor less than 1.  For tracking improvements, I would implement an "M of N" track initiation algorithm that correlates detections in a certain number of frames.  And if adding hardware is an option, I would use data fusion with a radar sensor to significantly improve performance in low light or poor visibility weather conditions.  I look forward to running my processing pipeline on more challenging videos to see how well it performs in different environments!
 
 ---
