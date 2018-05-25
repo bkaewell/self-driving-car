@@ -20,10 +20,7 @@ Goals:
 [image04]: ./output_images/search_window_scale3.0.jpg "search window example"
 [image05]: ./output_images/sliding_window_examples.jpg "sliding window example"
 [image06]: ./output_images/score_distribution_model_ref.png "Score Distribution Example"
-
-[image07]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
-[image08]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
-[image09]: ./output_images/car_notcar_hog_feature.jpg "HOG example"
+[image07]: ./output_images/heatmap_labels_bounding_boxes.jpg "Pipeline progression"
 
 ---
 
@@ -85,7 +82,7 @@ Here's a [link to my video output](https://github.com/bkaewell/self-driving-car/
 
 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  The source code is contained in the Nth code cell of my notebook located in "pipeline.ipynb" in the function called `process_image()`.
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap with a history depth of 50 most recent rectangles and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  The source code is contained in the Nth code cell of my notebook located in "pipeline.ipynb" in the function called `process_image()`.
 
 
 
