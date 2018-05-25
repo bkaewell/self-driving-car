@@ -53,7 +53,7 @@ I trained a linear Support Vector Machine (SVM) classifier using a combination o
 
 The sliding window search is contained in the tenth code cell of my notebook located in "pipeline.ipynb" in the function called `find_cars()`.  This single function is the workhorse of my processing pipeline.  It is able to extract features using HOG sub-sampling and make predictions.  It only extracts hog features once on a sub-region of the image (defined by start and stop Y positions), for each of a small set of predetermined window sizes (defined by a scale argument), and then sub-sampled to obtain all of its overlaying windows.  Each window is defined by a scaling factor that impacts the window size.  The scale factor can be set on different regions of the image (e.g. smaller near the horizon, larger in the center).  
 
-To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since there is no altitude dimension to self-driving cars today, I only processed the lower half of the image, starting at the 400 pixel mark.  A visualization of small overlapping windows near the horizon is shown below with a blue swath and a green swath of windows:
+To bound the search window region, I decided to divide the 1280 x 720 image in half along the horizontal plane separating the sky and ground.  Since there is no altitude dimension to self-driving cars today, I only processed the lower half of the image, starting at the 400 pixel mark.  A visualization of small overlapping windows near the horizon is shown below with a blue and green swath of windows:
 
 
 ![alt text][image03]
@@ -65,22 +65,22 @@ As the scale factor increases, the search area of the windows increases, but the
 ![alt text][image04]
 
 
-Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale and overlapping windows 50% in X and 75% in Y directions.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here are some example images of the full sliding window processing:
+Ultimately I searched on four scales (1, 1.5x, 2x, and 3x) with two swaths per scale and overlapping windows 50% in X and 75% in Y directions for expanded coverage.  I used YCrCb 3-channel HOG features plus histograms of color in the feature vector, which provided a solid result.  Here are some example images of the full sliding window processing:
 
 ![alt text][image05]
 
 
-I optimized the performance of my classifier by adding a confidence score threshold to minimize the false positive detections from the classifier....
+I improved the reliability of my classifier by selecting a classification threshold using the `decision_function()` from scikit-learn SVM and comparing prediction scores against it.  Any observations with scores higher than the threshold are then predicted as the positive class (vehicles) and scores lower than the threshold are predicted as the negative class (non-vehicles).  After fine-tuning the threshold value (`classification_thresh=1`), the model predicted fewer false positives and obtained more reliable car detections (see bottom of `find_cars()` function).  The figure below from the [Amazon Machine Learning Developer’s Guide]( https://docs.aws.amazon.com/machine-learning/latest/dg/binary-classification.html) illustrates a threshold cut off line on a sample score distribution for a binary classification model.
+
 
 ![alt text][image06]
+
 
 ---
 
 ### Video Implementation
 
-1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-
-Here's a [link to my video result](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/output_video.mp4)
+Here's a [link to my video output](https://github.com/bkaewell/self-driving-car/blob/master/P5-vehicle-detection/output_video.mp4)
 
 
 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
@@ -115,15 +115,6 @@ Here the resulting bounding boxes are drawn onto the last frame in the series:
 
 ### Discussion
 
-1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+I decided to go with an application where I wanted my machine learning model to be extremely sure about the positive predictions actually being positive (high precision) and be able to afford to misclassify some positive examples as negative (moderate recall).  This approach worked out very well because the model produced no false positives and detected and tracked the true positives in a steady state throughout the entire video.  I encountered several problems but one noteworthy problem was I had a steady false positive at a fixed position of each frame on the far right side for a 2.5x scale factor.  This was a concern because the frame contained only the road, but there may have been a glare from the windshield causing the reoccurring false positive.  As a work-around, I just removed all 2.5x scale windows from my pipeline.  To further improve my pipeline, I would derive an optimal grid pattern for the sliding window search to detect cars on the horizon.  I would use a scale factor less than 1.  And if adding hardware is an option, I would use data fusion with a radar sensor to significantly improve performance in low light or poor visibility weather conditions.  I look forward to running my processing pipeline on more challenging videos to see how well it performs in different environments!
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
-
--i noticed i had a consistent vehicle detection on the far right side of the frame for a 2.5x scale factor for the duration of the video.   
-
--i noticed that i wasn't picking up any of the smaller cars on the road with my current scale factors.  a potential area of improvement is to reduce the window size by setting the scale factor below 1 and experiment with that.
-
--area of improvement smoothing out the transition 
-
--trade offs between minimizing false positives, maybe did that too much.. what about oncoming traffic? or a parked car? 
--using radar as an additional sensor for detection
+---
